@@ -1,6 +1,6 @@
-# email-marketing-frontend
+# UNMSA Marketplace
 
-An email marketing software
+An E-commerce site for the University of Nigeria Medical School.
 
 things to write on
 
