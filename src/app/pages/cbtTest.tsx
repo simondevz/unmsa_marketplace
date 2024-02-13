@@ -36,20 +36,20 @@ export default function CbtTestPage() {
   }
 
   return (
-    <div className="flex flex-col justify-center gap-4 mt-4 mb-10 px-12">
-      <div className="flex justify-end font-agrandir_bold">
+    <div className="flex flex-col justify-center gap-2 md:gap-4 mt-2 md:mt-4 mb-4 md:mb-10 px-6 md:px-12">
+      <div className="flex justify-end text-[0.75rem] md:text-base font-agrandir_bold">
         10 : 00 remaining
       </div>
-      <div className="flex flex-col gap-4 mx-auto">
-        <span className="font-agrandir_grandheavy text-dark_ash text-[1.2rem] flex mx-auto">
+      <div className="flex flex-col gap-2 md:gap-4 mx-auto">
+        <span className="font-agrandir_grandheavy text-dark_ash text-[0.875rem] md:text-[1.2rem] flex mx-auto">
           {subject}
         </span>
-        <span className="font-agrandir_bold text-dark_ash ">
+        <span className="font-agrandir_bold text-[0.75rem] md:text-base text-dark_ash ">
           Question {count}
         </span>
-        <div className="flex flex-col font-agrandir_bold gap-4">
+        <div className="flex flex-col text-[0.75rem] md:text-base font-agrandir_bold gap-2 md:gap-4">
           <span>{question.question}</span>
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col gap-1 md:gap-2">
             <div className="flex w-full justify-between">
               <label htmlFor={question.options[0]}>
                 a. {question.options[0]}
@@ -106,9 +106,9 @@ export default function CbtTestPage() {
               />
             </div>
           </div>
-          <div className="flex gap-4">
+          <div className="flex gap-2 md:gap-4">
             <button
-              className="flex px-8 py-2 border border-2 border-light_green text-light_green font-agrandir_bold rounded"
+              className="flex px-4 md:px-8 py-1 md:py-2 text-[0.75rem] md:text-base border border-2 border-light_green text-light_green font-agrandir_bold rounded"
               onClick={() => {
                 if (count > 1) setCount(count - 1);
                 setQuestion(question);
@@ -117,7 +117,7 @@ export default function CbtTestPage() {
               prev
             </button>
             <button
-              className="flex px-8 py-2 bg-light_green text-white font-agrandir_bold rounded"
+              className="flex px-4 md:px-8 py-1 md:py-2 bg-light_green text-[0.75rem] md:text-base text-white font-agrandir_bold rounded"
               onClick={() => {
                 if (count < 10) setCount(count + 1);
                 setQuestion({
@@ -132,7 +132,7 @@ export default function CbtTestPage() {
         </div>
         <button
           onClick={() => handleEndTest()}
-          className="flex px-8 py-2 bg-red mx-auto text-white font-agrandir_bold rounded"
+          className="flex px-4 md:px-8 py-1 md:py-2 text-[0.75rem] md:text-base bg-red mx-auto text-white font-agrandir_bold rounded"
         >
           End Test
         </button>

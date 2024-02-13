@@ -3,32 +3,41 @@ import { FaRegUser } from "react-icons/fa";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { MdSearch } from "react-icons/md";
 import { NavLink } from "react-router-dom";
+import { HiMenu } from "react-icons/hi";
 
 export default function Header() {
   return (
-    <nav className="flex flex-col w-full gap-4 px-8 py-4 shadow-lg">
-      <div className="flex justify-between mt-6">
-        <div className="flex gap-4">
+    <nav className="flex flex-col w-full gap-2 md:gap-4 md:px-8 px-4 py-4 shadow-lg">
+      <div className="flex justify-between md:mt-6">
+        <div className="flex md:gap-4 gap-2">
           <div>
             <img
-              className="w-16"
+              className="w-10 md:w-16 my-auto"
               src={unmsa_logo}
               alt="University Of Nigeria Medical Students Association Logo"
             />
           </div>
-          <div>
-            <div className="flex flex-col font-agrandir_grandheavy font-extrabold text-[1rem] text-black leading-tight">
+          <div className="flex gap-1 flex-col">
+            <div className="flex flex-col font-agrandir_grandheavy font-extrabold md:text-[1rem] text-[0.75rem] text-black leading-tight">
               <span className="tracking-[0.65rem] text-light_green">UNMSA</span>
               <span className="tracking-[0.05rem]">MARKETPLACE</span>
             </div>
-            <span className="font-calibri_italic text-[0.875rem]">
+            <span className="font-calibri_italic md:text-[0.875rem] text-[0.5rem] leading-tight">
               Bringing the best of UNMSA together through market...
             </span>
           </div>
         </div>
 
         <div className="flex flex-col gap-4 items-end font-calibri">
-          <div className="flex gap-4">
+          <div className="md:hidden flex gap-4 text-green text-[1.5rem] my-auto">
+            <span>
+              <MdSearch />
+            </span>
+            <span>
+              <HiMenu />
+            </span>
+          </div>
+          <div className="hidden md:flex gap-4">
             <button className="flex bg-dark_green justify-between rounded-md gap-4 px-3">
               <span className="text-white my-auto">Cart</span>
               <span className="my-auto text-white ">
@@ -43,7 +52,7 @@ export default function Header() {
             </button>
           </div>
 
-          <div className="flex w-full">
+          <div className="hidden md:flex w-full">
             <div className="flex border border-black border-2 rounded-md p-[0.15rem] ">
               <input
                 className="border-none outline-none w-80 text-[0.875rem]"
@@ -59,7 +68,7 @@ export default function Header() {
         </div>
       </div>
 
-      <div className="flex font-agrandir w-full justify-center gap-10 font-semibold text-green">
+      <div className="hidden md:flex font-agrandir w-full justify-center gap-10 font-semibold text-green">
         <NavLink
           className={({ isActive }) =>
             isActive ? "underline underline-offset-8 decoration-2" : ""

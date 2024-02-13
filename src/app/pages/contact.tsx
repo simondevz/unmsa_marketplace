@@ -3,15 +3,15 @@ import { useNavigate } from "react-router-dom";
 export default function ContactPage() {
   const navigate = useNavigate();
   return (
-    <section className="flex flex-col px-12">
-      <div className="flex mx-auto p-2 gap-1">
+    <section className="flex flex-col px-4 md:px-12">
+      <div className="flex mx-auto md:p-2 p-1 md:gap-1 gap-0.5 flex-nowrap md:text-base text-[0.5rem]">
         <button onClick={() => navigate(-1)} className="font-agrandir">
           {"< Back / "}
         </button>
         <span className="font-agrandir_bold">Contact</span>
       </div>
-      <div className="shadow-lg shadow-dark_ash/50 flex flex-col gap-6 rounded-md font-agrandir_bold mb-10 p-8">
-        <div className="flex flex-col gap-8">
+      <div className="shadow-lg shadow-dark_ash/50 flex flex-col gap-6 md:text-base text-[0.75rem] rounded-md font-agrandir_bold mb-6 md:mb-10 p-4 md:p-8">
+        <div className="flex flex-col gap-2 md:gap-8">
           <p>
             Thank you for your interest in connecting with us! Whether you have
             a question, feedback, or simply want to say hello, we'd love to hear
@@ -45,7 +45,7 @@ export default function ContactPage() {
                   and exclusive content:
                 </span>
               </p>
-              <ul className="font-agrandir list-disc px-6">
+              <ul className="font-agrandir list-disc px-4 md:px-6">
                 <li>Facebook:</li>
                 <li>PaRrOt TV - +2349136933017</li>
                 <li>YouTube</li>
@@ -64,14 +64,14 @@ export default function ContactPage() {
           </p>
         </div>
 
-        <form className="flex flex-col gap-4">
+        <form className="flex flex-col gap-2 md:gap-4">
           <label>Contact Form</label>
           <div className="flex border border-2 w-fit rounded  p-[0.1rem]">
             <input
               placeholder="Make complaints.."
-              className="outline-none border-none p-2 text-[0.875rem] min-w-[20rem]"
+              className="outline-none border-none p-2 text-[0.5rem] md:text-[0.875rem] md:min-w-[20rem] min-w-[10rem]"
             />
-            <button className="flex px-4 py-[0.3rem] font-agrandir text-white bg-dark_ash rounded">
+            <button className="flex px-2 md:px-4 py-[0.3rem] font-agrandir text-white bg-dark_ash rounded">
               <span className="my-auto">Submit</span>
             </button>
           </div>
