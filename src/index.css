@@ -15,3 +15,48 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 } */
+
+@font-face {
+  font-family: "Agrandir-grandheavy";
+  src: url("./app/assets/fonts/Agrandir-Font-Family/Agrandir\ -\ Free\ For\ Personal\ Use/Agrandir-GrandHeavy.otf");
+}
+
+@font-face {
+  font-family: "Agrandir-bold";
+  src: url("./app/assets/fonts/Agrandir-Font-Family/Agrandir\ -\ Free\ For\ Personal\ Use/Agrandir-TextBold.otf");
+}
+
+@font-face {
+  font-family: "Agrandir-thinItalic";
+  src: url("./app/assets/fonts/Agrandir-Font-Family/Agrandir\ -\ Free\ For\ Personal\ Use/Agrandir-ThinItalic.otf");
+}
+
+@font-face {
+  font-family: "Agrandir";
+  src: url("./app/assets/fonts/Agrandir-Font-Family/Agrandir\ -\ Free\ For\ Personal\ Use/Agrandir-Regular.otf");
+}
+
+@font-face {
+  font-family: "Calibri-italic";
+  src: url("./app/assets/fonts/calibri-font-family/calibri-font-family/calibri-italic.ttf");
+}
+
+@font-face {
+  font-family: "Calibri";
+  src: url("./app/assets/fonts/calibri-font-family/calibri-font-family/calibri-regular.ttf");
+}
+
+@font-face {
+  font-family: "Calibri-bold";
+  src: url("./app/assets/fonts/calibri-font-family/calibri-font-family/calibri-bold.ttf");
+}
+
+@font-face {
+  font-family: "Gontserrat-bold";
+  src: url("./app/assets/fonts/gontserrat/Gontserrat-Bold.ttf");
+}
+
+@font-face {
+  font-family: "Montserrat-bold";
+  src: url("./app/assets/fonts/Montserrat/static/Montserrat-Bold.ttf");
+}
