@@ -9,12 +9,14 @@ export default function SelectQuestionPage() {
   const [selectedValue, setSelectedValue] = useState<ConfigType>({});
 
   return (
-    <div className="flex flex-col justify-center gap-4 mt-4 mb-10">
+    <div className="flex flex-col justify-center gap-2 md:gap-4 mt-2 md:mt-4 mb-4 md:mb-10">
       <div className="flex flex-col justify-center">
-        <span className="flex mx-auto font-agrandir_bold text-[1.2rem]">
+        <span className="flex mx-auto font-agrandir_bold text-[0.875rem] md:text-[1.2rem]">
           Choose a Subject
         </span>
-        <span className="flex mx-auto font-agrandir">Duration: 8 minutes</span>
+        <span className="flex mx-auto md:text-base text-[0.75rem] font-agrandir">
+          Duration: 8 minutes
+        </span>
       </div>
       <CustomSelect
         placeholder="Select degree type..."
@@ -65,7 +67,7 @@ export default function SelectQuestionPage() {
           )
             navigate("test", { state: { config: selectedValue } });
         }}
-        className="bg-light_green px-8 py-3 mx-auto font-agrandir_bold text-white rounded-lg"
+        className="bg-light_green px-4 md:px-8 py-2 md:py-3 mx-auto md:text-base text-[0.75rem] font-agrandir_bold text-white rounded-md md:rounded-lg"
       >
         Start test
       </button>

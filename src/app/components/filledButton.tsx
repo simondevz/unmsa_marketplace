@@ -12,7 +12,7 @@ export default function FilledButton({
       onClick={onClick}
       className={
         className +
-        " flex w-full bg-green text-white font-agrandir p-2 rounded-lg"
+        " flex w-full bg-green text-white font-agrandir md:text-base text-[0.875rem] md:p-2 p-1 rounded-lg"
       }
     >
       <span className="mx-auto">{text}</span>

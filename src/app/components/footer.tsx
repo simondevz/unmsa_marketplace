@@ -7,30 +7,32 @@ export default function Footer() {
     return <div className="w-full bg-white flex h-[0.1rem]"></div>;
   }
   return (
-    <footer className="flex flex-col gap-4 p-8 bg-green">
+    <footer className="hidden md:flex flex-col gap-4 p-4 md:p-8 bg-green ">
       <div className="flex flex-col justify-center w-full">
-        <div className="flex gap-4 mx-auto">
-          <div className="flex gap-4">
+        <div className="flex gap-4 flex-col md:flex-row mx-auto">
+          <div className="flex flex-col md:flex-row gap-4">
             <img
               className="w-12 h-16 my-auto"
               src={unn_logo}
               alt="University Of Nigeria, Nsukka Logo"
             />
-            <img
-              className="w-12 h-12 my-auto"
-              src={unmsa_logo}
-              alt="University Of Nigeria Medical Students Association Logo"
-            />
-            <div className="w-48">
-              <div className="flex flex-col font-agrandir_grandheavy font-extrabold text-[0.875remrem] text-black leading-tight">
-                <span className="tracking-[0.65rem] text-light_green">
-                  UNMSA
+            <div className="flex gap-4">
+              <img
+                className="w-12 h-12 my-auto"
+                src={unmsa_logo}
+                alt="University Of Nigeria Medical Students Association Logo"
+              />
+              <div className="w-48">
+                <div className="flex flex-col font-agrandir_grandheavy font-extrabold text-[0.875remrem] text-black leading-tight">
+                  <span className="tracking-[0.65rem] text-light_green">
+                    UNMSA
+                  </span>
+                  <span className="tracking-[0.05rem]">MARKETPLACE</span>
+                </div>
+                <span className="font-calibri_italic text-[0.75rem]">
+                  Bringing the best of UNMSA together through market...
                 </span>
-                <span className="tracking-[0.05rem]">MARKETPLACE</span>
               </div>
-              <span className="font-calibri_italic text-[0.75rem]">
-                Bringing the best of UNMSA together through market...
-              </span>
             </div>
           </div>
           <div className="w-80">
@@ -40,7 +42,7 @@ export default function Footer() {
           </div>
         </div>
         <div>
-          <div className="flex font-agrandir w-full justify-center gap-10 text-[0.875rem] my-8 text-white">
+          <div className="flex flex-wrap font-agrandir w-full justify-center gap-6 md:gap-10 text-[0.875rem] my-8 text-white">
             <NavLink
               className={({ isActive }) =>
                 isActive ? "underline underline-offset-8 decoration-2" : ""
@@ -115,7 +117,7 @@ export default function Footer() {
           <h2 className="font-agrandir_grandheavy tracking-wide text-white m-4">
             Find us on Socials:
           </h2>
-          <div className="flex font-agrandir w-full justify-center gap-10 text-[0.875rem] my-8 text-white">
+          <div className="flex font-agrandir w-full justify-center gap-4 md:gap-10 text-[0.875rem] my-8 text-white">
             <Link to={"#"}>Twitter</Link>
             <Link to={"#"}>Instagram</Link>
             <Link to={"#"}>YouTube</Link>
