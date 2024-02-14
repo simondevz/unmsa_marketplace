@@ -36,7 +36,7 @@ export default function ShopPage() {
             Continue shopping {">>"}
           </Link>
         </div>
-        <Bar text="Best sellers outside UNMSA" />
+        {/* <Bar text="Best sellers outside UNMSA" />
         <div className="flex flex-col gap-6 mb-4">
           <ProductRow />
           <ProductRow />
@@ -46,7 +46,7 @@ export default function ShopPage() {
           >
             Continue shopping {">>"}
           </Link>
-        </div>
+        </div> */}
         <Bar text="Verified" />
         <div className="flex flex-col gap-6 mb-4">
           <ProductRow />

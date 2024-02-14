@@ -1,12 +1,41 @@
 import { useState } from "react";
 import CustomSelect from "../components/customSelect";
 import { useNavigate } from "react-router-dom";
-import { ConfigType } from "../types/cbtTypes";
 
 export default function SelectQuestionPage() {
   const navigate = useNavigate();
+  const [display, setDisplay] = useState<number>(1);
   const [show, setShow] = useState(0);
-  const [selectedValue, setSelectedValue] = useState<ConfigType>({});
+
+  const [selectedValue, setSelectedValue] = useState<any>({ list: [] });
+  const exams = {
+    PLAB: ["PLAB 1", "PLAB 2"],
+    USMLE: ["USMLE step 1", "USMLE step 2", "USMLE step 3"],
+    MBBS: {
+      "2nd MBBS": {
+        Anatomy: ["Test", "Mock", "Exam"],
+        Biochemistry: ["Test", "Mock", "Exam"],
+        Physiology: ["Test", "Mock", "Exam"],
+      },
+      "3rd MBBS": {
+        Pathology: {
+          "Morbid Anatomy": ["Test", "Mock", "Exam"],
+          "Chemical Pathology": ["Test", "Mock", "Exam"],
+          Microbiology: ["Test", "Mock", "Exam"],
+          Hematology: ["Test", "Mock", "Exam"],
+        },
+        Pharmacology: ["Test", "Mock", "Exam"],
+      },
+      "4th MBBS": {
+        Paediatrics: ["Test", "Mock", "Exam"],
+        "Obstetrics and Gynecology": ["Test", "Mock", "Exam"],
+      },
+      "5th MBBS": {
+        Medicine: ["Test", "Mock", "Exam"],
+        Surgery: ["Test", "Mock", "Exam"],
+      },
+    },
+  };
 
   return (
     <div className="flex flex-col justify-center gap-2 md:gap-4 mt-2 md:mt-4 mb-4 md:mb-10">
@@ -22,18 +51,13 @@ export default function SelectQuestionPage() {
         placeholder="Select degree type..."
         name="degree"
         id={1}
+        display={display}
+        setDisplay={setDisplay}
         show={show}
         setShow={setShow}
         selectedValue={selectedValue}
         setSelectedValue={setSelectedValue}
-        list={[
-          "USMLE step 1",
-          "USMLE step 2",
-          "USMLE step 3",
-          "PLAB 1",
-          "PLAB 2",
-          "MBBS",
-        ]}
+        exams={exams}
         showRedirect
       />
       <CustomSelect
@@ -41,33 +65,84 @@ export default function SelectQuestionPage() {
         name="level"
         id={2}
         show={show}
+        display={display}
+        setDisplay={setDisplay}
         setShow={setShow}
         selectedValue={selectedValue}
         setSelectedValue={setSelectedValue}
-        list={["2nd MBBS", "3rd MBBS", "4th MBBS", "5th MBBS"]}
+        exams={exams}
         showRedirect={false}
       />
       <CustomSelect
         placeholder="Select a subject..."
         name="subject"
         id={3}
+        display={display}
+        setDisplay={setDisplay}
         show={show}
         setShow={setShow}
         selectedValue={selectedValue}
         setSelectedValue={setSelectedValue}
-        list={["Anatomy", "BIC", "Physiology"]}
+        exams={exams}
         showRedirect
       />
+      <CustomSelect
+        placeholder="Select a subject..."
+        name="subject"
+        id={4}
+        display={display}
+        setDisplay={setDisplay}
+        show={show}
+        setShow={setShow}
+        selectedValue={selectedValue}
+        setSelectedValue={setSelectedValue}
+        exams={exams}
+        showRedirect
+      />
+      <CustomSelect
+        placeholder="Select a subject..."
+        name="subject"
+        id={5}
+        display={display}
+        setDisplay={setDisplay}
+        show={show}
+        setShow={setShow}
+        selectedValue={selectedValue}
+        setSelectedValue={setSelectedValue}
+        exams={exams}
+        showRedirect
+      />
+
       <button
+        disabled={(() => {
+          const { list }: { list: string[] } = selectedValue;
+          if (list?.length < 2) return true;
+          if (list?.length > 1) {
+            if (
+              list[list.length - 1].includes("USMLE") ||
+              list[list.length - 1].includes("USMLE") ||
+              list[list.length - 1].includes("Test") ||
+              list[list.length - 1].includes("Mock") ||
+              list[list.length - 1].includes("Exam")
+            )
+              return false;
+            return true;
+          }
+        })()}
         onClick={() => {
-          if (
-            selectedValue?.degree &&
-            selectedValue?.level &&
-            selectedValue?.subject
-          )
-            navigate("test", { state: { config: selectedValue } });
+          navigate("test", {
+            state: {
+              subject: (() => {
+                if (selectedValue?.list?.length === 2)
+                  return selectedValue.list[1];
+                return `${
+                  selectedValue.list[selectedValue?.list?.length - 2]
+                } ${selectedValue.list[selectedValue?.list?.length - 1]}`;
+              })(),
+            },
+          });
         }}
-        className="bg-light_green px-4 md:px-8 py-2 md:py-3 mx-auto md:text-base text-[0.75rem] font-agrandir_bold text-white rounded-md md:rounded-lg"
+        className="bg-light_green disabled:bg-ash px-4 md:px-8 py-2 md:py-3 mx-auto md:text-base text-[0.75rem] font-agrandir_bold text-white rounded-md md:rounded-lg"
       >
         Start test
       </button>
