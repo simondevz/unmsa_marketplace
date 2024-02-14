@@ -8,7 +8,7 @@ export default function ScorePage() {
 
   const [showAnswers, setShowAnswers] = useState(false);
   const [count, setCount] = useState(1);
-  const { questions, answers, subject } = location.state;
+  const { questions, subject } = location.state;
 
   return (
     <div className="flex flex-col gap-4 mt-8 md:mt-12 mb-6 md:mb-10 w-full">
