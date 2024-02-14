@@ -91,18 +91,23 @@ export default function HomePage() {
           </h2>
           <Bar text="Categories" />
           <div className="flex flex-wrap gap-2 mb-4">
-            {Array(12)
-              .fill("Hair accessories")
-              .map((text: string, index: number) => {
-                return (
-                  <button
-                    key={index}
-                    className="border border-green text-green md:px-4 px-2 md:py-2 py-1 rounded-3xl border-2 font-agrandir_bold font-bold text-[0.75rem] md:text-[0.875rem]"
-                  >
-                    {text}
-                  </button>
-                );
-              })}
+            {[
+              "electronics",
+              "Food & Snacks",
+              "Clothing items",
+              "Cosmetics",
+              "Stationeries",
+              "Prints",
+            ].map((text: string, index: number) => {
+              return (
+                <button
+                  key={index}
+                  className="border border-green text-green md:px-4 px-2 md:py-2 py-1 rounded-3xl border-2 font-agrandir_bold font-bold text-[0.75rem] md:text-[0.875rem]"
+                >
+                  {text}
+                </button>
+              );
+            })}
           </div>
           <Bar text="UMNSA’s Top Sellers" />
           <div className="flex flex-col gap-6 mb-4">
@@ -114,7 +119,7 @@ export default function HomePage() {
               Continue shopping {">>"}
             </Link>
           </div>
-          <Bar text="Best sellers outside UNMSA" />
+          {/* <Bar text="Best sellers outside UNMSA" />
           <div className="flex flex-col gap-6 mb-4">
             <ProductRow />
             <Link
@@ -123,7 +128,7 @@ export default function HomePage() {
             >
               Continue shopping {">>"}
             </Link>
-          </div>
+          </div> */}
           <Bar text="Verified" />
           <div className="flex flex-col gap-6 mb-4">
             <ProductRow />

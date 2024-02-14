@@ -4,10 +4,13 @@ import { AiOutlineShoppingCart } from "react-icons/ai";
 import { MdSearch } from "react-icons/md";
 import { NavLink } from "react-router-dom";
 import { HiMenu } from "react-icons/hi";
+import Menu from "./menu";
+import { useState } from "react";
 
 export default function Header() {
+  const [display, setDisplay] = useState(false);
   return (
-    <nav className="flex flex-col w-full gap-2 md:gap-4 md:px-8 px-4 py-4 shadow-lg">
+    <nav className="flex relative flex-col w-full gap-2 md:gap-4 md:px-8 px-4 py-4 shadow-lg">
       <div className="flex justify-between md:mt-6">
         <div className="flex md:gap-4 gap-2">
           <div>
@@ -33,8 +36,9 @@ export default function Header() {
             <span>
               <MdSearch />
             </span>
-            <span>
+            <span onClick={() => setDisplay(!display)} className="">
               <HiMenu />
+              <Menu display={display} setDisplay={setDisplay} />
             </span>
           </div>
           <div className="hidden md:flex gap-4">

@@ -2,10 +2,12 @@ import FilledButton from "./filledButton";
 import { Link, useNavigate } from "react-router-dom";
 
 export default function ProductCard({
+  image_url,
   price,
   name,
   location,
 }: {
+  image_url: string;
   price: number;
   name: string;
   location: string;
@@ -17,7 +19,12 @@ export default function ProductCard({
       to={"#"}
     >
       <div
-        className={`w-full md:h-36 h-28 bg-no-repeat bg-cover bg-origin-border rounded-t-lg bg-[url("https://s3-alpha-sig.figma.com/img/8ddf/9a14/fcf5e27fbce40a84d847549220a52d9a?Expires=1708905600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=k0ki3RcvTWDzavqat6dwyzPW7lKx9NYFYhKqAhb4fQYmQVOMKp7D-1fM~EbP4IrOQkAhSoTcMIM2GGHyztZCMZqzzo44ag7aqT3gavDZVKvVL0mJuuSfahvumk3sg~PNjT7G4XK6GzHTLlu7wYtGPXVBuSg~M1xZFUNSQKClbFx3CQbBAaWB2vC8j5Z7AnstBXNhd-0V6~TZRWAFHWoZqnZGiyan8Glq6mVtW30XC-OSCwSoYFXTB6Mqc79yompvxcmon~ctOsYomiw~yvx1Xiqev0h3l-XwCgLLxYwjYC4AATTNqa7s2l07yLcwSQAhaVhtcNMaMnQ9QZgkR0HsTw__")]`}
+        style={{
+          backgroundImage: "url(" + image_url + ")",
+        }}
+        className={
+          "w-full md:h-36 h-28 bg-no-repeat bg-cover bg-origin-border rounded-t-lg"
+        }
       ></div>
       <div className="flex flex-col md:gap-2 gap-1 md:p-3 p-2">
         <span className="text-darker_lemon font-semibold md:text-[1.2rem] font-agrandir_bold">
