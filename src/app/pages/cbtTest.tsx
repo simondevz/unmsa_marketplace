@@ -69,6 +69,7 @@ export default function CbtTestPage() {
 
   const [answers, setAnswers] = useState<any[]>(Array(5));
   const [checked, setChecked] = useState<any>({});
+  const letters = ["a", "b", "c", "d", "e"];
   console.log(answers);
 
   const navigate = useNavigate();
@@ -82,11 +83,11 @@ export default function CbtTestPage() {
     navigate("../score", { state: { score } });
   }
 
-  function handleOptionPick(event: any, count: number) {
+  function handleOptionPick(event: any, count: number, option: string) {
     const newAnswers = answers;
     newAnswers[count - 1] = event.target.value;
     setAnswers(newAnswers);
-    setChecked({ [event.target.name]: true });
+    setChecked({ [option]: true });
   }
 
   return (
@@ -109,54 +110,33 @@ export default function CbtTestPage() {
                   <div className="flex flex-col text-[0.75rem] md:text-base font-agrandir_bold gap-2 md:gap-4">
                     <span>{question.question}</span>
                     <div className="flex flex-col gap-1 md:gap-2">
-                      <div className="flex w-full justify-between">
-                        <label htmlFor={question.options[0]}>
-                          a. {question.options[0]}
-                        </label>
-                        <input
-                          type="radio"
-                          onChange={(event) => handleOptionPick(event, count)}
-                          name={"options" + index}
-                          id={question.options[0]}
-                          value={question.options[0]}
-                        />
-                      </div>
-                      <div className="flex w-full justify-between">
-                        <label htmlFor={question.options[1]}>
-                          b. {question.options[1]}
-                        </label>
-                        <input
-                          type="radio"
-                          onChange={(event) => handleOptionPick(event, count)}
-                          name={"options" + index}
-                          id={question.options[1]}
-                          value={question.options[1]}
-                        />
-                      </div>
-                      <div className="flex w-full justify-between">
-                        <label htmlFor={question.options[2]}>
-                          c. {question.options[2]}
-                        </label>
-                        <input
-                          type="radio"
-                          onChange={(event) => handleOptionPick(event, count)}
-                          name={"options" + index}
-                          id={question.options[2]}
-                          value={question.options[2]}
-                        />
-                      </div>
-                      <div className="flex w-full justify-between">
-                        <label htmlFor={question.options[3]}>
-                          d. {question.options[3]}
-                        </label>
-                        <input
-                          type="radio"
-                          onChange={(event) => handleOptionPick(event, count)}
-                          name={"options" + index}
-                          id={question.options[3]}
-                          value={question.options[3]}
-                        />
-                      </div>
+                      {question.options.map(
+                        (option: string, option_index: number) => {
+                          return (
+                            <div
+                              key={option_index}
+                              className="flex w-full justify-between"
+                            >
+                              <label htmlFor={option}>
+                                {letters[option_index]}. {option}
+                              </label>
+                              <input
+                                type="radio"
+                                onChange={(event) =>
+                                  handleOptionPick(event, count, option)
+                                }
+                                checked={
+                                  checked[option] ||
+                                  answers[count - 1] === option
+                                }
+                                name={"options" + index}
+                                id={option}
+                                value={option}
+                              />
+                            </div>
+                          );
+                        }
+                      )}
                     </div>
                     <div className="flex gap-2 md:gap-4">
                       <button
