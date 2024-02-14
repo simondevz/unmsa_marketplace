@@ -68,6 +68,7 @@ export default function CbtTestPage() {
   };
 
   const [answers, setAnswers] = useState<any[]>(Array(5));
+  const [checked, setChecked] = useState<any>({});
   console.log(answers);
 
   const navigate = useNavigate();
@@ -85,6 +86,7 @@ export default function CbtTestPage() {
     const newAnswers = answers;
     newAnswers[count - 1] = event.target.value;
     setAnswers(newAnswers);
+    setChecked({ [event.target.name]: true });
   }
 
   return (
@@ -114,7 +116,6 @@ export default function CbtTestPage() {
                         <input
                           type="radio"
                           onChange={(event) => handleOptionPick(event, count)}
-                          checked={answers[count - 1] === question.options[0]}
                           name={"options" + index}
                           id={question.options[0]}
                           value={question.options[0]}
@@ -127,7 +128,6 @@ export default function CbtTestPage() {
                         <input
                           type="radio"
                           onChange={(event) => handleOptionPick(event, count)}
-                          checked={answers[count - 1] === question.options[1]}
                           name={"options" + index}
                           id={question.options[1]}
                           value={question.options[1]}
@@ -140,7 +140,6 @@ export default function CbtTestPage() {
                         <input
                           type="radio"
                           onChange={(event) => handleOptionPick(event, count)}
-                          checked={answers[count - 1] === question.options[2]}
                           name={"options" + index}
                           id={question.options[2]}
                           value={question.options[2]}
@@ -153,7 +152,6 @@ export default function CbtTestPage() {
                         <input
                           type="radio"
                           onChange={(event) => handleOptionPick(event, count)}
-                          checked={answers[count - 1] === question.options[3]}
                           name={"options" + index}
                           id={question.options[3]}
                           value={question.options[3]}
