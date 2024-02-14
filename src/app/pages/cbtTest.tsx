@@ -70,17 +70,11 @@ export default function CbtTestPage() {
   const [answers, setAnswers] = useState<any[]>(Array(5));
   const [checked, setChecked] = useState<any>({});
   const letters = ["a", "b", "c", "d", "e"];
-  console.log(answers);
 
   const navigate = useNavigate();
   const subject = location.state.subject;
-  const [
-    score,
-    // setScore
-  ] = useState(76);
-
   function handleEndTest() {
-    navigate("../score", { state: { score } });
+    navigate("../score", { state: { questions: QUESTIONS, answers, subject } });
   }
 
   function handleOptionPick(event: any, count: number, option: string) {
