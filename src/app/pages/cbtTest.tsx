@@ -1,11 +1,15 @@
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import Timer from "../components/timer";
 
 export default function CbtTestPage() {
   // TODO: Store some of the data in localstorage so that reloading will contine from where the user stopped
   const location = useLocation();
   const [count, setCount] = useState(1);
-  const QUESTIONS = {
+  const [
+    QUESTIONS,
+    // _
+  ] = useState({
     "Anatomy Test": [
       {
         question:
@@ -65,17 +69,20 @@ export default function CbtTestPage() {
         refrence: "(1st test, Gross Anat, 2007)",
       },
     ],
-  };
+  });
 
   const [answers, setAnswers] = useState<any[]>(Array(5));
   const [checked, setChecked] = useState<any>({});
   const letters = ["a", "b", "c", "d", "e"];
 
+  const [timeRecord, setTimeRecord] = useState("");
   const navigate = useNavigate();
   const subject = location.state.subject;
-  function handleEndTest() {
-    navigate("../score", { state: { questions: QUESTIONS, answers, subject } });
-  }
+  const handleEndTest = useCallback(() => {
+    navigate("../score", {
+      state: { questions: QUESTIONS, answers, subject, timeRecord },
+    });
+  }, [QUESTIONS, answers, navigate, subject, timeRecord]);
 
   function handleOptionPick(event: any, count: number, option: string) {
     const newAnswers = answers;
@@ -84,10 +91,19 @@ export default function CbtTestPage() {
     setChecked({ [option]: true });
   }
 
+  useEffect(() => {
+    if (timeRecord === "0 : 0") handleEndTest();
+  }, [handleEndTest, timeRecord]);
+
   return (
     <div className="flex flex-col justify-center gap-2 md:gap-4 mt-2 md:mt-4 mb-4 md:mb-10 px-6 md:px-12">
       <div className="flex justify-end text-[0.75rem] md:text-base font-agrandir_bold">
-        10 : 00 remaining
+        <Timer
+          timeRecord={timeRecord}
+          setTimeRecord={setTimeRecord}
+          startMinutes={10}
+        />{" "}
+        remaining
       </div>
       <div className="flex flex-col gap-2 md:gap-4 mx-auto">
         {subject === "Anatomy Test" ? (
@@ -99,7 +115,7 @@ export default function CbtTestPage() {
                     {subject}
                   </span>
                   <span className="font-agrandir_bold text-[0.75rem] md:text-base text-dark_ash ">
-                    Question {count}
+                    Question {count} {question.refrence}
                   </span>
                   <div className="flex flex-col text-[0.75rem] md:text-base font-agrandir_bold gap-2 md:gap-4">
                     <span>{question.question}</span>
