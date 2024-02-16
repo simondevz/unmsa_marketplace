@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { IoIosClose, IoIosCheckmark } from "react-icons/io";
 
 export default function ScorePage() {
   const navigate = useNavigate();
@@ -8,15 +9,34 @@ export default function ScorePage() {
 
   const [showAnswers, setShowAnswers] = useState(false);
   const [count, setCount] = useState(1);
-  const { questions, answers, subject } = location.state;
+  const { questions, answers, subject, timeRecord } = location.state;
+
+  // calculate score
+  const score: number = useMemo(() => {
+    let scoreCount = 0;
+    questions[subject].forEach(
+      (
+        question: {
+          question: string;
+          options: string[];
+          answer: string;
+          refrence: string;
+        },
+        index: number
+      ) => {
+        if (question.answer === answers[index]) scoreCount++;
+      }
+    );
+    return scoreCount;
+  }, [answers, questions, subject]);
 
   return (
     <div className="flex flex-col gap-4 mt-8 md:mt-12 mb-6 md:mb-10 w-full">
       <h2 className="flex mx-auto font-agrandir_grandheavy md:text-[1.5rem] text-green">
-        Your Score is 76
+        Your Score is {score}
       </h2>
       <span className="flex text-[0.75rem] md:text-base font-agrandir_bold mx-auto">
-        Time record: 5:49
+        Time record: {timeRecord}
       </span>
       <div
         className={
@@ -40,7 +60,7 @@ export default function ScorePage() {
                     {subject}
                   </span>
                   <span className="font-agrandir_bold text-[0.75rem] md:text-base text-dark_ash ">
-                    Question {count}
+                    Question {count} {question.refrence}
                   </span>
                   <div className="flex flex-col text-[0.75rem] md:text-base font-agrandir_bold gap-2 md:gap-4">
                     <span>{question.question}</span>
@@ -57,12 +77,18 @@ export default function ScorePage() {
                               </span>
                               <span
                                 className={
-                                  "flex border-2 rounded-full max-w-4 max-h-4 min-w-4 min-h-4 my-auto" +
+                                  "flex border-2 rounded-full text-xl my-auto text-white" +
                                   (question.answer === option
                                     ? " bg-green border-green"
                                     : " bg-red border-red")
                                 }
-                              />
+                              >
+                                {question.answer === option ? (
+                                  <IoIosCheckmark />
+                                ) : (
+                                  <IoIosClose />
+                                )}
+                              </span>
                             </div>
                           );
                         }
