@@ -13,9 +13,9 @@ export default function HomePage() {
             <span className="text-lemon">products</span> directly to people who
             might want it
           </span>
-          <div className="flex flex-col md:flex-row justify-between">
+          <div className="flex flex-col-reverse md:flex-row justify-between">
             <div className="flex flex-col md:gap-4 gap-2">
-              <span className="font-gontserrat_bold tracking-wider md:text-[1.2rem] text-[0.875rem] text-lemon">
+              <span className="font-gontserrat_bold tracking-wider hidden md:flex md:text-[1.2rem] text-[0.875rem] text-lemon">
                 Tailored exclusively for e-commerce purposes
               </span>
               <div className="flex gap-4">
@@ -27,12 +27,12 @@ export default function HomePage() {
                 </button>
               </div>
             </div>
-            <div className="flex gap-4">
+            <div className="flex gap-4 mb-4">
               <div className="flex flex-col">
                 <span className="mx-auto font-montserrat_bold font-bold md:text-[2.5rem] text-[1.2rem] text-white">
                   50+
                 </span>
-                <span className="mx-auto w-32 text-center md:text-base text-[0.75rem] text-orange">
+                <span className="mx-auto w-20 md:w-32 text-center md:text-base text-[0.75rem] text-orange">
                   Students have registered
                 </span>
               </div>
@@ -40,11 +40,14 @@ export default function HomePage() {
                 <span className="mx-auto font-montserrat_bold font-bold md:text-[2.5rem] text-[1.2rem] text-white">
                   100+
                 </span>
-                <span className="mx-auto w-32 text-center md:text-base text-[0.75rem] text-orange">
+                <span className="mx-auto w-20 md:w-32 text-center md:text-base text-[0.75rem] text-orange">
                   Visitors across the country.
                 </span>
               </div>
             </div>
+            <span className="font-gontserrat_bold tracking-wider md:hidden md:text-[1.2rem] text-[0.875rem] text-lemon">
+              Tailored exclusively for e-commerce purposes
+            </span>
           </div>
         </div>
 

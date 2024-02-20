@@ -37,8 +37,8 @@ module.exports = {
     },
     extend: {
       backgroundImage: {
-        green_home: "url('/src/app/assets/image/green_bg.png')",
-        home: "url('/src/app/assets/image/home_bg.png')",
+        green_home: "url('/src/app/assets/image/green_bg.webp')",
+        home: "url('/src/app/assets/image/home_bg.webp')",
       },
     },
   },
