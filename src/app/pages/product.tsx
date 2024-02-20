@@ -1,12 +1,13 @@
 import { useState } from "react";
 import { FaHeart } from "react-icons/fa";
-import { Link, useNavigate } from "react-router-dom";
-import profile_pic from "../assets/image/default_profile_pic.png";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import MiniProductCard from "../components/miniProductCard";
 
 export default function ProductPage() {
   const [count, setCount] = useState(1);
   const navigate = useNavigate();
+  const location = useLocation();
+  const { product } = location.state;
 
   function Divide() {
     return <div className="flex h-[0.1rem] w-fill bg-black"></div>;
@@ -18,51 +19,56 @@ export default function ProductPage() {
         <button onClick={() => navigate(-1)} className="font-agrandir">
           {"< Back /"}
         </button>
-        <span className="font-agrandir">Phone & PC /</span>
-        <span className="font-agrandir_bold">
-          iPhone XR Generic black pouch
+        <span className="font-agrandir">
+          {product.category || "Phone & PC"} /
         </span>
+        <span className="font-agrandir_bold">{product.name}</span>
       </span>
       <div className="shadow-lg shadow-dark_ash/50 flex flex-col rounded-md font-agrandir_bold md:gap-12 gap-4 mb-10 md:p-8 p-4">
         <div className="flex md:flex-row flex-col md:gap-4 gap-2 ">
           <div className="flex md:gap-2 gap-1 md:h-[30rem] h-44">
             <div className="flex w-1/2 md:w-full flex-col gap-1 md:gap-2">
               <div
-                className={`md:w-80 h-full bg-center bg-no-repeat bg-cover bg-origin-border bg-[url("https://s3-alpha-sig.figma.com/img/8ddf/9a14/fcf5e27fbce40a84d847549220a52d9a?Expires=1708905600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=k0ki3RcvTWDzavqat6dwyzPW7lKx9NYFYhKqAhb4fQYmQVOMKp7D-1fM~EbP4IrOQkAhSoTcMIM2GGHyztZCMZqzzo44ag7aqT3gavDZVKvVL0mJuuSfahvumk3sg~PNjT7G4XK6GzHTLlu7wYtGPXVBuSg~M1xZFUNSQKClbFx3CQbBAaWB2vC8j5Z7AnstBXNhd-0V6~TZRWAFHWoZqnZGiyan8Glq6mVtW30XC-OSCwSoYFXTB6Mqc79yompvxcmon~ctOsYomiw~yvx1Xiqev0h3l-XwCgLLxYwjYC4AATTNqa7s2l07yLcwSQAhaVhtcNMaMnQ9QZgkR0HsTw__")]`}
+                style={{
+                  backgroundImage: "url(" + product.image_url + ")",
+                }}
+                className={`md:w-80 h-full bg-center bg-no-repeat bg-cover bg-origin-border`}
               ></div>
             </div>
             <div className="flex w-1/2 md:w-full flex-col gap-2">
               <div
-                className={`md:w-80 h-full bg-no-repeat bg-cover bg-origin-border bg-[url("https://s3-alpha-sig.figma.com/img/8ddf/9a14/fcf5e27fbce40a84d847549220a52d9a?Expires=1708905600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=k0ki3RcvTWDzavqat6dwyzPW7lKx9NYFYhKqAhb4fQYmQVOMKp7D-1fM~EbP4IrOQkAhSoTcMIM2GGHyztZCMZqzzo44ag7aqT3gavDZVKvVL0mJuuSfahvumk3sg~PNjT7G4XK6GzHTLlu7wYtGPXVBuSg~M1xZFUNSQKClbFx3CQbBAaWB2vC8j5Z7AnstBXNhd-0V6~TZRWAFHWoZqnZGiyan8Glq6mVtW30XC-OSCwSoYFXTB6Mqc79yompvxcmon~ctOsYomiw~yvx1Xiqev0h3l-XwCgLLxYwjYC4AATTNqa7s2l07yLcwSQAhaVhtcNMaMnQ9QZgkR0HsTw__")]`}
+                style={{
+                  backgroundImage: "url(" + product.image_url + ")",
+                }}
+                className={`md:w-80 h-full bg-no-repeat bg-cover bg-origin-border`}
               ></div>
               <div
-                className={`md:w-80 h-full bg-no-repeat bg-cover bg-origin-border bg-[url("https://s3-alpha-sig.figma.com/img/8ddf/9a14/fcf5e27fbce40a84d847549220a52d9a?Expires=1708905600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=k0ki3RcvTWDzavqat6dwyzPW7lKx9NYFYhKqAhb4fQYmQVOMKp7D-1fM~EbP4IrOQkAhSoTcMIM2GGHyztZCMZqzzo44ag7aqT3gavDZVKvVL0mJuuSfahvumk3sg~PNjT7G4XK6GzHTLlu7wYtGPXVBuSg~M1xZFUNSQKClbFx3CQbBAaWB2vC8j5Z7AnstBXNhd-0V6~TZRWAFHWoZqnZGiyan8Glq6mVtW30XC-OSCwSoYFXTB6Mqc79yompvxcmon~ctOsYomiw~yvx1Xiqev0h3l-XwCgLLxYwjYC4AATTNqa7s2l07yLcwSQAhaVhtcNMaMnQ9QZgkR0HsTw__")]`}
+                style={{
+                  backgroundImage: "url(" + product.image_url + ")",
+                }}
+                className={`md:w-80 h-full bg-no-repeat bg-cover bg-origin-border`}
               ></div>
             </div>
           </div>
           <div className="flex flex-col gap-1 md:gap-4">
             <span className="flex md:text-[1.5rem] text-[1rem] font-agrandir_grandheavy font-bold">
-              iPhone XR Generic Black pouch
+              {product.name}
             </span>
             <span className="flex md:text-[2rem] text-[1.2rem] font-agrandir_grandheavy font-bold text-green">
-              N3 000
+              N{product.price}
             </span>
             <ul className="flex list-disc text-ash px-2 md:px-8 gap-4 md:gap-12 md:text-base text-[0.75rem] font-agrandir">
-              <li>Old UNTH, Enugu.</li>
+              <li>{product.location}.</li>
               <li>Posted 4hrs ago.</li>
             </ul>
             <div className="flex flex-col font-agrandir md:text-[1.2rem] text-[0.875rem] text-ash">
               <h4 className="text-black">Description</h4>
-              <p>
-                iphone black pouch iphone black pouch iphone black pouch iphone
-                black pouch iphone black pouch iphone black pouch iphone black
-                pouch
-              </p>
-              <span>
+              <p>{product.description}</p>
+              {/* <span>
                 Color: <b>Black</b>
               </span>
               <span>Condition: ?</span>
-              <span>ID: ?</span>
+              <span>ID: ?</span> */}
             </div>
             <div className="flex justify-between font-agrandir">
               <div className="flex md:text-base text-[0.75rem] gap-2 md:gap-4">
@@ -111,12 +117,12 @@ export default function ProductPage() {
             <div className="flex md:flex-col gap-4 md:gap-0.5">
               <img
                 className="md:w-36 w-28"
-                src={profile_pic}
-                alt="Mahley Ventures"
+                src={product.vendor.image}
+                alt={product.vendor.store_name}
               />
               <div className="">
                 <span className="text-green md:text-base text-[0.75rem]">
-                  Mahley Ventures
+                  {product.vendor.store_name}
                 </span>
                 <div className="flex flex-col font-agrandir md:text-base text-[0.75rem]">
                   <span>

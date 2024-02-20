@@ -1,12 +1,14 @@
 import FilledButton from "./filledButton";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function ProductCard({
   image_url,
   price,
   name,
   location,
+  product,
 }: {
+  product: any;
   image_url: string;
   price: number;
   name: string;
@@ -14,10 +16,7 @@ export default function ProductCard({
 }) {
   const navigate = useNavigate();
   return (
-    <Link
-      className=" flex flex-col border border-2 border-green rounded-lg md:min-w-48 min-w-36"
-      to={"#"}
-    >
+    <div className=" flex flex-col border border-2 border-green rounded-lg md:min-w-48 min-w-36">
       <div
         style={{
           backgroundImage: "url(" + image_url + ")",
@@ -30,17 +29,17 @@ export default function ProductCard({
         <span className="text-darker_lemon font-semibold md:text-[1.2rem] font-agrandir_bold">
           N {price}
         </span>
-        <span className="font-agrandir md:text-base text-[0.875rem] text-black">
+        <span className="font-agrandir text-pretty md:text-base text-[0.875rem] line-clamp-2 min-h-10 md:line-clamp-1 md:min-h-4 text-black overflow-x-hidden">
           {name}
         </span>
         <span className="md:text-[0.875rem] text-[0.75rem] text-light_ash font-agrandir">
           {location}
         </span>
         <FilledButton
-          onClick={() => navigate("/shop/product-page")}
+          onClick={() => navigate("/shop/product-page", { state: { product } })}
           text="Buy"
         />
       </div>
-    </Link>
+    </div>
   );
 }

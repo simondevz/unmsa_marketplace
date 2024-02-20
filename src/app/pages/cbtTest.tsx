@@ -161,18 +161,25 @@ export default function CbtTestPage() {
                       >
                         prev
                       </button>
-                      <button
-                        disabled={(() => {
-                          if (count === 5 || count > 5) return true;
-                          return false;
-                        })()}
-                        className="flex px-4 disabled:bg-ash md:px-8 py-1 md:py-2 bg-light_green text-[0.75rem] md:text-base text-white font-agrandir_bold rounded"
-                        onClick={() => {
-                          setCount(count + 1);
-                        }}
-                      >
-                        next
-                      </button>
+                      {count === 5 || count > 5 ? (
+                        <button
+                          className="flex px-4 disabled:bg-ash md:px-8 py-1 md:py-2 bg-light_green text-[0.75rem] md:text-base text-white font-agrandir_bold rounded"
+                          onClick={() => {
+                            handleEndTest();
+                          }}
+                        >
+                          submit
+                        </button>
+                      ) : (
+                        <button
+                          className="flex px-4 disabled:bg-ash md:px-8 py-1 md:py-2 bg-light_green text-[0.75rem] md:text-base text-white font-agrandir_bold rounded"
+                          onClick={() => {
+                            setCount(count + 1);
+                          }}
+                        >
+                          next
+                        </button>
+                      )}
                     </div>
                   </div>
                   <button

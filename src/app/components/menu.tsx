@@ -68,6 +68,15 @@ export default function Menu({
       >
         About Us
       </NavLink>
+      <NavLink
+        onClick={() => setDisplay(false)}
+        className={
+          "font-semibold text-white bg-green px-10 py-4 border-b border-b-green"
+        }
+        to={"#"}
+      >
+        Login/Sign Up
+      </NavLink>
     </div>
   );
 }
