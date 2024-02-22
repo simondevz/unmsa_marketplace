@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import Bar from "../components/bar";
 import ProductRow from "../components/productRow";
 import BlogCard from "../components/blogCard";
+import VendorRow from "../components/vendorRow";
 
 export default function HomePage() {
   return (
@@ -112,7 +113,7 @@ export default function HomePage() {
               );
             })}
           </div>
-          <Bar text="UMNSA’s Top Sellers" />
+          <Bar text="All Products & Services" />
           <div className="flex flex-col gap-6 mb-4">
             <ProductRow />
             <Link
@@ -132,7 +133,7 @@ export default function HomePage() {
               Continue shopping {">>"}
             </Link>
           </div> */}
-          <Bar text="Verified" />
+          <Bar text="Top selling products" />
           <div className="flex flex-col gap-6 mb-4">
             <ProductRow />
             <Link
@@ -141,6 +142,11 @@ export default function HomePage() {
             >
               Continue shopping {">>"}
             </Link>
+          </div>
+
+          <Bar text="UMNSA’s Top Sellers" />
+          <div className="flex flex-col gap-6 mb-4">
+            <VendorRow />
           </div>
 
           <h3 className="font-agrandir_bold md:text-[1.5rem] text-[0.875rem] font-bold text-green">

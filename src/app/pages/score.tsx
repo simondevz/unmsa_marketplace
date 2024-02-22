@@ -46,10 +46,11 @@ export default function ScorePage() {
         {questions[subject].map(
           (
             question: {
+              image?: any;
               question: string;
               options: string[];
               answer: string;
-              refrence: string;
+              reference?: string;
             },
             index: number
           ) => {
@@ -60,9 +61,15 @@ export default function ScorePage() {
                     {subject}
                   </span>
                   <span className="font-agrandir_bold text-[0.75rem] md:text-base text-dark_ash ">
-                    Question {count} {question.refrence}
+                    Question {count} {question?.reference || ""}
                   </span>
                   <div className="flex flex-col text-[0.75rem] md:text-base font-agrandir_bold gap-2 md:gap-4">
+                    {question?.image && (
+                      <div
+                        style={{ backgroundImage: `url(${question?.image})` }}
+                        className="w-full h-[20rem] bg-no-repeat bg-contain bg-origin-border bg-center mx-auto flex"
+                      ></div>
+                    )}
                     <span>{question.question}</span>
                     <div className="flex flex-col gap-1 md:gap-2">
                       {question.options.map(
