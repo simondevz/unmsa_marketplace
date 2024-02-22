@@ -31,8 +31,8 @@ export default function SelectQuestionPage() {
         "Obstetrics and Gynecology": ["Test", "Mock", "Exam"],
       },
       "5th MBBS": {
-        Medicine: ["Test", "Mock", "Exam"],
-        Surgery: ["Test", "Mock", "Exam"],
+        Medicine: ["M1", "M2", "M3", "M4", "Mock", "Exam"],
+        Surgery: ["S1", "S2", "S3", "S4", "Mock", "Exam"],
       },
     },
   };
@@ -120,10 +120,18 @@ export default function SelectQuestionPage() {
           if (list?.length > 1) {
             if (
               list[list.length - 1].includes("USMLE") ||
-              list[list.length - 1].includes("USMLE") ||
+              list[list.length - 1].includes("PLAB") ||
               list[list.length - 1].includes("Test") ||
               list[list.length - 1].includes("Mock") ||
-              list[list.length - 1].includes("Exam")
+              list[list.length - 1].includes("Exam") ||
+              list[list.length - 1].includes("M1") ||
+              list[list.length - 1].includes("M2") ||
+              list[list.length - 1].includes("M3") ||
+              list[list.length - 1].includes("M4") ||
+              list[list.length - 1].includes("S1") ||
+              list[list.length - 1].includes("S2") ||
+              list[list.length - 1].includes("S3") ||
+              list[list.length - 1].includes("S4")
             )
               return false;
             return true;
