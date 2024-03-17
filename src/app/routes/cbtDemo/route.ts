@@ -1,5 +1,5 @@
 import { RouteObject } from "react-router-dom";
-import CBTDemoPage from "../../pages/cbtDemo";
+import CBTDemoPage from "../../pages/cbtDemo/cbtDemo";
 import SelectQuestionRoute from "./selectQuestions/route";
 import CbtTestRoute from "./cbtTest/route";
 import ScoreRoute from "./score/route";

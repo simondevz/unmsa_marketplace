@@ -2,13 +2,15 @@ import unmsa_logo from "../assets/logo/unmsa_logo.png";
 import { FaRegUser } from "react-icons/fa";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { MdSearch } from "react-icons/md";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { HiMenu } from "react-icons/hi";
 import Menu from "./menu";
 import { useState } from "react";
 
 export default function Header() {
   const [display, setDisplay] = useState(false);
+  const navigate = useNavigate();
+
   return (
     <nav className="flex relative flex-col w-full gap-2 md:gap-4 md:px-8 px-4 py-4 shadow-lg">
       <div className="flex justify-between md:mt-6">
@@ -42,7 +44,10 @@ export default function Header() {
             </span>
           </div>
           <div className="hidden md:flex gap-4">
-            <button className="flex bg-dark_green justify-between rounded-md gap-4 px-3">
+            <button
+              onClick={() => navigate("/shop/cart")}
+              className="flex bg-dark_green justify-between rounded-md gap-4 px-3"
+            >
               <span className="text-white my-auto">Cart</span>
               <span className="my-auto text-white ">
                 <AiOutlineShoppingCart className="w-6 h-6" />

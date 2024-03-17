@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import umsle_step1_5 from "../assets/image/usmle_step1_5.jpg";
-import Timer from "../components/timer";
+import umsle_step1_5 from "../../assets/image/usmle_step1_5.jpg";
+import Timer from "../../components/timer";
 
 export default function CbtTestPage() {
   // TODO: Store some of the data in localstorage so that reloading will contine from where the user stopped

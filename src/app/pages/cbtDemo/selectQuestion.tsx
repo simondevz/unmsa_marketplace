@@ -1,5 +1,5 @@
 import { useState } from "react";
-import CustomSelect from "../components/customSelect";
+import CustomSelect from "../../components/customSelect";
 import { useNavigate } from "react-router-dom";
 
 export default function SelectQuestionPage() {

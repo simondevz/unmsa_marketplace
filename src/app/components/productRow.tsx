@@ -1,4 +1,4 @@
-import ProductCard from "./productCard";
+import ProductCard from "./cards/productCard";
 import mock_product2 from "../assets/image/mock_product2.jpg";
 import mock_product3 from "../assets/image/mock_product3.jpg";
 import mock_product4 from "../assets/image/mock_product4.jpg";
