@@ -1,5 +1,5 @@
 import { RouteObject } from "react-router-dom";
-import CbtTestPage from "../../../pages/cbtTest";
+import CbtTestPage from "../../../pages/cbtDemo/cbtTest";
 
 const CbtTestRoute: RouteObject = {
   path: "test",

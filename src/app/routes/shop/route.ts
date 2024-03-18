@@ -1,10 +1,12 @@
 import { RouteObject } from "react-router-dom";
 import ProductRoute from "./productPage/route";
 import IndexShopRoute from "./index/route";
+import EditProductRoute from "./editProduct/route";
+import CartRoute from "./cart/route";
 
 const ShopRoute: RouteObject = {
   path: "/shop",
-  children: [IndexShopRoute, ProductRoute],
+  children: [IndexShopRoute, ProductRoute, EditProductRoute, CartRoute],
 };
 
 export default ShopRoute;

@@ -1,4 +1,4 @@
-import FilledButton from "./filledButton";
+import FilledButton from "../buttons/filledButton";
 import { useNavigate } from "react-router-dom";
 
 export default function ProductCard({
@@ -38,6 +38,7 @@ export default function ProductCard({
         <FilledButton
           onClick={() => navigate("/shop/product-page", { state: { product } })}
           text="Buy"
+          color="green"
         />
       </div>
     </div>

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { FaHeart } from "react-icons/fa";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import MiniProductCard from "../components/miniProductCard";
+import MiniProductCard from "../../components/cards/miniProductCard";
 
 export default function ProductPage() {
   const [count, setCount] = useState(1);

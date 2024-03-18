@@ -1,5 +1,5 @@
-import BlogCard from "../components/blogCard";
-import Pagination from "../components/pagination";
+import BlogCard from "../../components/cards/blogCard";
+import Pagination from "../../components/pagination";
 
 export default function BlogListPage() {
   return (

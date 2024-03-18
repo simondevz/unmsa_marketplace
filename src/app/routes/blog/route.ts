@@ -1,5 +1,5 @@
 import { RouteObject } from "react-router-dom";
-import BlogListPage from "../../pages/blog";
+import BlogListPage from "../../pages/blog/blog";
 
 const BlogRoute: RouteObject = {
   path: "/blog",

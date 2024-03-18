@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
-import Bar from "../components/bar";
-import BlogCard from "../components/blogCard";
-import ProductRow from "../components/productRow";
-import VendorRow from "../components/vendorRow";
+import Bar from "../../components/bar";
+import BlogCard from "../../components/cards/blogCard";
+import ProductRow from "../../components/productRow";
+import VendorRow from "../../components/vendorRow";
 
 export default function ShopPage() {
   return (

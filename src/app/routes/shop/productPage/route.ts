@@ -1,5 +1,5 @@
 import { RouteObject } from "react-router-dom";
-import ProductPage from "../../../pages/product";
+import ProductPage from "../../../pages/shop/product";
 
 const ProductRoute: RouteObject = {
   path: "product-page",

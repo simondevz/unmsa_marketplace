@@ -1,7 +1,7 @@
 import vendor1_img from "../assets/image/vendor1.jpg";
 import vendor2_img from "../assets/image/vendor2.jpg";
 import vendor3_img from "../assets/image/vendor3.jpg";
-import VendorCard from "./vendorCard";
+import VendorCard from "./cards/vendorCard";
 
 export default function VendorRow() {
   const vendor1 = {

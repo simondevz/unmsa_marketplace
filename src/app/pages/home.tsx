@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import Bar from "../components/bar";
 import ProductRow from "../components/productRow";
-import BlogCard from "../components/blogCard";
+import BlogCard from "../components/cards/blogCard";
 import VendorRow from "../components/vendorRow";
 
 export default function HomePage() {

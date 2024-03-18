@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import mock_blog from "../assets/image/mock_blog.jpg";
+import mock_blog from "../../assets/image/mock_blog.jpg";
 
 export default function BlogCard({
   title,

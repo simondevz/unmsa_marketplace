@@ -23,7 +23,7 @@ export default function VendorCard({ vendor }: { vendor: any }) {
         </div>
         <Link
           className="font-agrandir text-green md:text-[0.875rem] text-[0.75rem]"
-          to={"#"}
+          to={"/profile"}
         >
           Full Profile {">>"}
         </Link>
