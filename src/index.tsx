@@ -5,6 +5,8 @@ import App from "./app/App";
 import reportWebVitals from "./reportWebVitals";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import AppRoutes from "./app/routes/index.routes";
+import { store } from "./app/redux/store";
+import { Provider } from "react-redux";
 
 const router = createBrowserRouter([
   {
@@ -20,7 +22,9 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <Provider store={store}>
+      <RouterProvider router={router} />
+    </Provider>
   </React.StrictMode>
 );
 

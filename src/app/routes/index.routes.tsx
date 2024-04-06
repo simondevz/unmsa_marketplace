@@ -6,7 +6,9 @@ import CbtDemoRoute from "./cbtDemo/route";
 import AboutRoute from "./about/route";
 import ContactRoute from "./contact/route";
 import ProfileRoute from "./profile/route";
+import AuthRoute from "./auth/route";
 
+// TODO: make routes lazy loaded
 const AppRoutes: RouteObject[] = [
   HomeRoute,
   ShopRoute,
@@ -15,6 +17,7 @@ const AppRoutes: RouteObject[] = [
   AboutRoute,
   ContactRoute,
   ProfileRoute,
+  AuthRoute,
 ];
 
 export default AppRoutes;

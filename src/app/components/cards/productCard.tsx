@@ -5,14 +5,14 @@ export default function ProductCard({
   image_url,
   price,
   name,
-  location,
-  product,
+  quantity,
+  product_id,
 }: {
-  product: any;
+  product_id: string;
   image_url: string;
   price: number;
   name: string;
-  location: string;
+  quantity: number;
 }) {
   const navigate = useNavigate();
   return (
@@ -33,10 +33,10 @@ export default function ProductCard({
           {name}
         </span>
         <span className="md:text-[0.875rem] text-[0.75rem] text-light_ash font-agrandir">
-          {location}
+          Number Left: {quantity}
         </span>
         <FilledButton
-          onClick={() => navigate("/shop/product-page", { state: { product } })}
+          onClick={() => navigate(`/shop/products/${name}/${product_id}`)}
           text="Buy"
           color="green"
         />

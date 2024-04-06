@@ -60,3 +60,13 @@ code {
   font-family: "Montserrat-bold";
   src: url("./app/assets/fonts/Montserrat/static/Montserrat-Bold.ttf");
 }
+
+@font-face {
+  font-family: "br-firma";
+  src: url("./app/assets/fonts/BR\ Firma\ Font\ Family/BRFirma-Medium.ttf");
+}
+
+@font-face {
+  font-family: "br-firma-bold";
+  src: url("./app/assets/fonts/BR\ Firma\ Font\ Family/BRFirma-SemiBold.ttf");
+}

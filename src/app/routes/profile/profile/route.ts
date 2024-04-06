@@ -2,7 +2,7 @@ import { RouteObject } from "react-router-dom";
 import ProfilePage from "../../../pages/profiles/profile";
 
 const ProfileRoute: RouteObject = {
-  index: true,
+  path: ":userId",
   Component: ProfilePage,
 };
 

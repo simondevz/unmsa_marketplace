@@ -2,7 +2,7 @@ import { RouteObject } from "react-router-dom";
 import ProductPage from "../../../pages/shop/product";
 
 const ProductRoute: RouteObject = {
-  path: "product-page",
+  path: "products/:productName/:productId",
   Component: ProductPage,
 };
 

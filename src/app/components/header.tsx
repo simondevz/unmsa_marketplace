@@ -2,14 +2,18 @@ import unmsa_logo from "../assets/logo/unmsa_logo.png";
 import { FaRegUser } from "react-icons/fa";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { MdSearch } from "react-icons/md";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { HiMenu } from "react-icons/hi";
 import Menu from "./menu";
 import { useState } from "react";
+import { useAppSelector } from "../redux/hooks";
 
 export default function Header() {
+  const userId = useAppSelector((state) => state.auth._id);
   const [display, setDisplay] = useState(false);
+
   const navigate = useNavigate();
+  const location = useLocation();
 
   return (
     <nav className="flex relative flex-col w-full gap-2 md:gap-4 md:px-8 px-4 py-4 shadow-lg">
@@ -53,8 +57,20 @@ export default function Header() {
                 <AiOutlineShoppingCart className="w-6 h-6" />
               </span>
             </button>
-            <button className="flex bg-dark_green justify-between rounded-md gap-4 px-3">
-              <span className="text-white my-auto">Login</span>
+            <button
+              onClick={() => {
+                if (!userId)
+                  navigate("/auth/login", {
+                    state: { redirectUrl: location.pathname },
+                  });
+
+                if (userId) navigate(`/profile/${userId}`);
+              }}
+              className="flex bg-dark_green justify-between rounded-md gap-4 px-3"
+            >
+              <span className="text-white my-auto">
+                {userId ? "Profile" : "Login"}
+              </span>
               <span className="text-white flex rounded-full w-6 h-6 bg-ash my-2">
                 <FaRegUser className="justify-center my-auto mx-auto" />
               </span>
