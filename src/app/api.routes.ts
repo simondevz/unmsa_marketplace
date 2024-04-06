@@ -1,68 +1,143 @@
-import axios from "axios";
+import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import type {
+  CheckCredentialsType,
+  LoginType,
+  SignupType,
+} from "./types/authTypes";
+import { ProfileDetailsType } from "./types/profileTypes";
+import { ProductType, UpdateProductType } from "./types/productTypes";
+import { customAxios } from "./utils/customAxios";
+import { isTokenValid, refreshToken } from "./utils/token";
+import { getAuthDetailsKey, getToken } from "./utils/localStorage";
 
-const BASE = "http://127.0.0.1:8000";
+export const BASE = "https://unmsa.onrender.com/api";
 
-// Custom axios instance based on headers needed
-export const customAxios = {
-  unprotected: () =>
-    axios.create({
-      baseURL: BASE,
+export const unprotectedRoutesApi = createApi({
+  reducerPath: "unprotectedRoutes",
+  baseQuery: fetchBaseQuery({ baseUrl: BASE }),
+  endpoints: (builder) => ({
+    signup: builder.mutation<SignupType, Partial<SignupType>>({
+      query: (body) => ({
+        url: `/users`,
+        method: "POST",
+        body,
+      }),
     }),
-  // protected: () => {
-  //   try {
-  //     const token = getToken();
-  //     if (!token?.access_token) throw new Error("Please Log In to continue");
 
-  //     const headers = {
-  //       Authorization: `${token?.token_type} ${token?.access_token}`,
-  //     };
-  //     return axios.create({
-  //       baseURL: BASE,
-  //       headers: headers,
-  //     });
-  //   } catch (error) {
-  //     throw new Error("Please Log In to continue");
-  //   }
-  // },
-  // multipartForm: () => {
-  //   try {
-  //     // const token = getToken();
-  //     if (!token?.access_token) throw new Error("Please Log In to continue");
+    login: builder.mutation<LoginType, Partial<LoginType>>({
+      query: (body) => ({
+        url: `/login`,
+        method: "POST",
+        body,
+      }),
+    }),
 
-  //     const headers = {
-  //       Authorization: `${token?.token_type} ${token?.access_token}`,
-  //       "Content-Type": "multipart/form-data",
-  //     };
+    checkCredentials: builder.mutation<
+      CheckCredentialsType,
+      Partial<CheckCredentialsType>
+    >({
+      query: (body) => ({
+        url: `/users/is-account-available`,
+        method: "POST",
+        body,
+      }),
+    }),
 
-  //     return axios.create({
-  //       baseURL: BASE,
-  //       headers: headers,
-  //     });
-  //   } catch (error) {
-  //     throw new Error("Please Log In to continue");
-  //   }
-  // },
-};
+    getProducts: builder.query<ProductType[], any>({
+      query: () => ({
+        url: `/products`,
+        method: "GET",
+      }),
+    }),
 
-// API routes
-export const API_ROUTES = {
-  // Auth
-  auth: {
-    signup: "/auth/signup", // POST
-    login: "/auth/login", // POST
-  },
+    getProductById: builder.query<ProductType[], Partial<ProductType>>({
+      query: (details) => ({
+        url: `/products/${details.product_id}`,
+        method: "GET",
+      }),
+    }),
+  }),
+});
 
-  user: {
-    dashboardInfo: "/user/dashboard-info/", // GET: user_id
-  },
+export const protectedRoutesApi = createApi({
+  reducerPath: "protectedRoutes",
+  baseQuery: fetchBaseQuery({
+    baseUrl: BASE,
+    prepareHeaders: async (headers) => {
+      try {
+        const auth = await getToken(await getAuthDetailsKey());
+        const token = auth?.accessToken;
+        const refresh_Token = auth?.refreshToken;
 
-  mailing_services: {
-    create: "/mailing/create", // POST
-  },
+        if (token && (await isTokenValid(token))) {
+          headers.set("authorization", `Bearer ${token}`);
+        } else if (refresh_Token) {
+          const data = await refreshToken(refresh_Token);
+          headers.set("authorization", `Bearer ${data.accessToken}`);
+        } else {
+          throw new Error("Please log in");
+        }
+        return headers;
+      } catch (error) {
+        throw error;
+      }
+    },
+  }),
+  endpoints: (builder) => ({
+    getProfileDetails: builder.query<
+      ProfileDetailsType,
+      Partial<ProfileDetailsType>
+    >({
+      query: (details) => ({
+        url: `/sellers/user/${details.ownerId}`,
+        method: "GET",
+      }),
+    }),
 
-  email_verification: {
-    check: "/verification/check-address", // GET
-    start_process: "/verification/start-process", // GET
-    end_process: "/verification/end-process", // GET
-  },
-};
+    createProfile: builder.mutation<
+      ProfileDetailsType,
+      Partial<ProfileDetailsType>
+    >({
+      query: (body) => ({
+        url: `/sellers`,
+        method: "POST",
+        body,
+      }),
+    }),
+
+    // todo: handle errors
+    createProduct: builder.mutation<ProductType, FormData>({
+      queryFn: async (formdata) => {
+        const fetcher = await customAxios.multipartForm();
+        const { data }: { data: ProductType } = await fetcher.post(
+          "/create-product",
+          formdata
+        );
+        return { data };
+      },
+    }),
+
+    updateProduct: builder.mutation<ProductType, Partial<UpdateProductType>>({
+      query: (body) => ({
+        url: `/products/update/${body.id}`,
+        method: "POST",
+        body: { updateBody: body.updateBody },
+      }),
+    }),
+  }),
+});
+
+export const {
+  useLoginMutation,
+  useSignupMutation,
+  useCheckCredentialsMutation,
+  useGetProductByIdQuery,
+  useGetProductsQuery,
+} = unprotectedRoutesApi;
+
+export const {
+  useLazyGetProfileDetailsQuery,
+  useCreateProfileMutation,
+  useCreateProductMutation,
+  useUpdateProductMutation,
+} = protectedRoutesApi;

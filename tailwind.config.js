@@ -30,6 +30,7 @@ module.exports = {
       dark_orange: "#8F5E26",
       red: "#B32626",
       light_red: "#FF6161",
+      moss_green: "#4E5D47",
     },
     fontFamily: {
       agrandir_grandheavy: ["Agrandir-grandheavy", "sans-serif"],
@@ -41,6 +42,8 @@ module.exports = {
       calibri: ["Calibri", "sans-serif"],
       gontserrat_bold: ["Gontserrat-bold", "sans-serif"],
       montserrat_bold: ["Montserrat-bold", "sans-serif"],
+      br_firma: ["br-firma", "sans-serif"],
+      br_firma_bold: ["br-firma-bold", "sans-serif"],
     },
     extend: {
       backgroundImage: {

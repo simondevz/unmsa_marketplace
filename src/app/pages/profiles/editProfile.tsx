@@ -125,7 +125,7 @@ export default function EditProfilePage() {
                 Your Services/Products
               </span>
               <button
-                onClick={() => navigate("/shop/edit-product")}
+                onClick={() => navigate("/shop/product/create/new")}
                 className={
                   "bg-green text-white  flex whitespace-nowrap font-agrandir_bold md:text-base text-[0.875rem] md:p-2 p-1 rounded-sm"
                 }
@@ -138,12 +138,8 @@ export default function EditProfilePage() {
                 "border border-green rounded-md px-4 py-3 gap-4 flex flex-col"
               }
             >
-              <div>
-                <ProductRow />
-              </div>
-              <div>
-                <ProductRow />
-              </div>
+              <div>{/* <ProductRow /> */}</div>
+              <div>{/* <ProductRow /> */}</div>
             </div>
             <div className="flex justify-between">
               <span className="my-auto font-agrandir text-green">

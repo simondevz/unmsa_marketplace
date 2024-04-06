@@ -1,10 +1,13 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import Bar from "../components/bar";
 import ProductRow from "../components/productRow";
 import BlogCard from "../components/cards/blogCard";
 import VendorRow from "../components/vendorRow";
 
 export default function HomePage() {
+  const navigate = useNavigate();
+  const location = useLocation();
+
   return (
     <>
       <section>
@@ -20,10 +23,20 @@ export default function HomePage() {
                 Tailored exclusively for e-commerce purposes
               </span>
               <div className="flex gap-4">
-                <button className="px-4 py-2 text-white font-agrandir md:text-base text-[0.75rem] rounded-md bg-light_green md:w-36 w-28">
+                <button
+                  onClick={() => navigate("/shop")}
+                  className="px-4 py-2 text-white font-agrandir md:text-base text-[0.75rem] rounded-md bg-light_green md:w-36 w-28"
+                >
                   Go Shopping
                 </button>
-                <button className="px-4 py-2 text-white font-agrandir md:text-base text-[0.75rem] rounded-md border border-2 border-white md:w-36 w-28">
+                <button
+                  onClick={() =>
+                    navigate("/auth/login", {
+                      state: { redirectUrl: location.pathname },
+                    })
+                  }
+                  className="px-4 py-2 text-white font-agrandir md:text-base text-[0.75rem] rounded-md border border-2 border-white md:w-36 w-28"
+                >
                   Login
                 </button>
               </div>
@@ -115,7 +128,7 @@ export default function HomePage() {
           </div>
           <Bar text="All Products & Services" />
           <div className="flex flex-col gap-6 mb-4">
-            <ProductRow />
+            {/* <ProductRow /> */}
             <Link
               className="font-agrandir text-green text-[0.75rem] md:text-[0.875rem] underline"
               to={"#"}
@@ -135,7 +148,7 @@ export default function HomePage() {
           </div> */}
           <Bar text="Top selling products" />
           <div className="flex flex-col gap-6 mb-4">
-            <ProductRow />
+            {/* <ProductRow /> */}
             <Link
               className="font-agrandir text-green text-[0.75rem] md:text-[0.875rem] underline"
               to={"#"}
