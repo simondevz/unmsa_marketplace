@@ -7,7 +7,7 @@ const initialState: { currentUserProfile: ProfileDetailsType } = {
   currentUserProfile: {
     _id: "",
     email: "",
-    phoneNumer: "",
+    phoneNumber: "",
     brandName: "",
     gender: "",
     department: "",

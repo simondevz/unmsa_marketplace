@@ -1,7 +1,7 @@
 export type ProfileDetailsType = {
   _id: string;
   email: string;
-  phoneNumer: string;
+  phoneNumber: string;
   brandName: string;
   gender: string;
   department: string;

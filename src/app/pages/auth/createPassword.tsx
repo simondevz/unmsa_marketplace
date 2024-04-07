@@ -14,13 +14,15 @@ import { storeToken } from "../../utils/localStorage";
 
 export default function CreatePasswordPage() {
   const [searchParams, setSearchParams] = useSearchParams();
-  const [signupFn, { data, isLoading, isSuccess }] = useSignupMutation();
+  const [signupFn, { data, isLoading, isSuccess, isError, error }] =
+    useSignupMutation();
   const [loginFn, loginDetails] = useLoginMutation();
 
   const location = useLocation();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
+  const [errorMsg, setErrorMsg] = useState<string>("");
   const redirectUrl = location.state?.redirectUrl;
   const [signupData, setSignupData] = useState<Partial<SignupType>>({
     password: "",
@@ -94,7 +96,6 @@ export default function CreatePasswordPage() {
   }, [isSuccess, navigate, redirectUrl, searchParams]);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchParams({});
     setSignupData({
       ...signupData,
       [event.target.name]: event?.target.value,
@@ -103,7 +104,21 @@ export default function CreatePasswordPage() {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log(signupData);
+    if (!signupData.email || !signupData?.userName) {
+      setErrorMsg("Email missing. Please return to sign up page");
+      return;
+    }
+
+    if (!signupData.password || !signupData?.confirmPassword) {
+      setErrorMsg("Please fill in all the fields.");
+      return;
+    }
+
+    if (signupData.password !== signupData?.confirmPassword) {
+      setErrorMsg("Passwords do not match.");
+      return;
+    }
+
     signupFn({
       fullName: signupData.fullName,
       email: signupData.email,
@@ -117,19 +132,22 @@ export default function CreatePasswordPage() {
     <>
       <form
         onSubmit={handleSubmit}
-        className="flex flex-col gap-6 px-8 py-20 font-br_firma bg-moss_green rounded-md justify-start w-2/5"
+        className="flex flex-col gap-4 md:gap-6 px-4 md:px-8 py-10 md:py-20 text-[0.875rem] md:text-base font-br_firma bg-moss_green rounded-md justify-start md:w-2/5"
       >
         <div className="mx-auto">
           <span className="flex mx-auto font-br_firma_bold text-white">
             Create password
           </span>
         </div>
-        <div className="w-full justify-between flex flex-col mx-auto ">
-          <label className="text-white text-[0.875rem]" htmlFor="password">
+        <div className="w-full max-w-[20rem] lg:max-w-[30rem] justify-between flex flex-col mx-auto ">
+          <label
+            className="text-white text-[0.75rem] md:text-[0.875rem]"
+            htmlFor="password"
+          >
             Choose password
           </label>
           <input
-            className="border-dark_ash_2 border-2 rounded-md outline-none w-full p-[0.5rem] text-[0.875rem]"
+            className="border-dark_ash_2 border-2 rounded-md outline-none w-full p-[0.5rem] text-[0.75rem] md:text-[0.875rem]"
             type="text"
             id="password"
             name="password"
@@ -137,26 +155,39 @@ export default function CreatePasswordPage() {
             onChange={handleChange}
           />
         </div>
-        <div className="w-full justify-between flex flex-col mx-auto ">
+        <div className="w-full max-w-[20rem] lg:max-w-[30rem] justify-between flex flex-col mx-auto ">
           <label
-            className="text-white text-[0.875rem]"
+            className="text-white text-[0.75rem] md:text-[0.875rem]"
             htmlFor="confirmPassword"
           >
             Repeat password
           </label>
           <input
-            className="border-dark_ash_2 border-2 rounded-md outline-none w-full p-[0.5rem] text-[0.875rem]"
+            className="border-dark_ash_2 border-2 rounded-md outline-none w-full p-[0.5rem] text-[0.75rem] md:text-[0.875rem]"
             type={"text"}
             id="confirmPassword"
             name="confirmPassword"
             value={signupData.confirmPassword}
             onChange={handleChange}
           />
+          <div
+            className={
+              (isError || errorMsg ? "flex " : "hidden ") +
+              "flex text-light_red text-[0.75rem] py-2 px-2"
+            }
+          >
+            <span>
+              {errorMsg
+                ? errorMsg
+                : (error as any)?.data?.message?.details[0]?.message ||
+                  "Something Went Wrong. Please try again"}
+            </span>
+          </div>
         </div>
         <div>
           <button
             disabled={isLoading || loginDetails.isLoading}
-            className="flex px-16 py-2 bg-darker_lemon shadow-md text-white mx-auto rounded-sm"
+            className="flex px-12 md:px-16 py-2 bg-darker_lemon shadow-md text-white mx-auto rounded-sm"
           >
             <ClipLoader
               color="#fff"
@@ -173,9 +204,9 @@ export default function CreatePasswordPage() {
           </button>
         </div>
         <div className="mx-auto">
-          <span className="text-white text-[0.875rem]">
+          <span className="text-white text-[0.75rem] md:text-[0.875rem]">
             Already got an account?{" "}
-            <Link className="text-light_green" to={"#"}>
+            <Link className="text-light_green" to={"/auth/login"}>
               Log in
             </Link>
           </span>

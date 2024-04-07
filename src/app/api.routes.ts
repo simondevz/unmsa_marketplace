@@ -56,6 +56,13 @@ export const unprotectedRoutesApi = createApi({
         method: "GET",
       }),
     }),
+
+    getSellers: builder.query<ProfileDetailsType[], any>({
+      query: () => ({
+        url: "/sellers",
+        method: "GET",
+      }),
+    }),
   }),
 });
 
@@ -133,6 +140,7 @@ export const {
   useCheckCredentialsMutation,
   useGetProductByIdQuery,
   useGetProductsQuery,
+  useGetSellersQuery,
 } = unprotectedRoutesApi;
 
 export const {

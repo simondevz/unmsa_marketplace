@@ -7,8 +7,9 @@ import { ClipLoader } from "react-spinners";
 export default function SignupPage() {
   const navigate = useNavigate();
   let [searchParams, setSearchParams] = useSearchParams();
+  const [errorMsg, setErrorMsg] = useState("");
 
-  const [checkCredentials, { data, isLoading, isSuccess }] =
+  const [checkCredentials, { data, isLoading, isSuccess, isError, error }] =
     useCheckCredentialsMutation();
   const [signupData, setSignupData] = useState<Partial<SignupType>>({
     fullName: "",
@@ -53,6 +54,11 @@ export default function SignupPage() {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    if (!signupData?.fullName || !signupData.userName || !signupData?.email) {
+      setErrorMsg("Please fill in all the fields.");
+      return;
+    }
+
     checkCredentials({
       email: signupData.email,
       userName: signupData.userName,
@@ -61,22 +67,29 @@ export default function SignupPage() {
   };
 
   return (
-    <>
+    <div className="flex w-full flex-col md:w-2/5">
+      <span className="md:hidden flex font-agrandir_bold text-darker_lemon text-[1rem] px-4 pb-4 text-center mx-auto">
+        Ready to explore the all new opportunity to get your services to your
+        customers as an UNMSAite?
+      </span>
       <form
         onSubmit={handleSubmit}
-        className="flex flex-col gap-6 px-8 py-20 font-br_firma bg-moss_green rounded-sm justify-start w-2/5"
+        className="flex flex-col gap-4 md:gap-6 px-4 md:px-8 py-8 md:py-20 text-[0.875rem] md:text-base font-br_firma bg-moss_green rounded-sm justify-start"
       >
         <div className="mx-auto">
           <span className="flex mx-auto font-br_firma_bold text-white">
             To get started, sign up
           </span>
         </div>
-        <div className="w-full justify-between flex flex-col mx-auto ">
-          <label className="text-white text-[0.875rem]" htmlFor="fullName">
+        <div className="w-full max-w-[20rem] lg:max-w-[30rem] justify-between flex flex-col mx-auto ">
+          <label
+            className="text-white text-[0.75rem] md:text-[0.875rem]"
+            htmlFor="fullName"
+          >
             Full name
           </label>
           <input
-            className="border-dark_ash_2 border-2 rounded-md outline-none w-full p-[0.5rem] text-[0.875rem]"
+            className="border-dark_ash_2 border-2 rounded-md outline-none w-full p-[0.5rem] text-[0.75rem] md:text-[0.875rem]"
             type="text"
             id="fullName"
             name="fullName"
@@ -84,31 +97,61 @@ export default function SignupPage() {
             onChange={handleChange}
           />
         </div>
-        <div className="w-full justify-between flex flex-col mx-auto ">
-          <label className="text-white text-[0.875rem]" htmlFor="email">
+        <div className="w-full max-w-[20rem] lg:max-w-[30rem] justify-between flex flex-col mx-auto ">
+          <label
+            className="text-white text-[0.75rem] md:text-[0.875rem]"
+            htmlFor="email"
+          >
             Email address
           </label>
           <input
-            className="border-dark_ash_2 border-2 rounded-md outline-none w-full p-[0.5rem] text-[0.875rem]"
+            className="border-dark_ash_2 border-2 rounded-md outline-none w-full p-[0.5rem] text-[0.75rem] md:text-[0.875rem]"
             type="text"
             id="email"
             name="email"
             value={signupData.email}
             onChange={handleChange}
           />
+          <div
+            className={
+              (data?.userWithEmailExists ? "flex " : "hidden ") +
+              "flex text-light_red text-[0.75rem] py-2 px-2"
+            }
+          >
+            <span>{"Account with email address exist"}</span>
+          </div>
         </div>
-        <div className="w-full justify-between flex flex-col mx-auto ">
-          <label className="text-white text-[0.875rem]" htmlFor="userName">
+        <div className="w-full max-w-[20rem] lg:max-w-[30rem] justify-between flex flex-col mx-auto ">
+          <label
+            className="text-white text-[0.75rem] md:text-[0.875rem]"
+            htmlFor="userName"
+          >
             Username
           </label>
           <input
-            className="border-dark_ash_2 border-2 rounded-md outline-none w-full p-[0.5rem] text-[0.875rem]"
+            className="border-dark_ash_2 border-2 rounded-md outline-none w-full p-[0.5rem] text-[0.75rem] md:text-[0.875rem]"
             type={"text"}
             id="userName"
             name="userName"
             value={signupData.userName}
             onChange={handleChange}
           />
+          <div
+            className={
+              (isError || data?.userWithUsernameExists || errorMsg
+                ? "flex "
+                : "hidden ") + "flex text-light_red text-[0.75rem] py-2 px-2"
+            }
+          >
+            <span>
+              {errorMsg
+                ? errorMsg
+                : data?.userWithUsernameExists
+                ? "Account with username exist"
+                : (error as any)?.data?.message ||
+                  "Something Went Wrong. Please try again"}
+            </span>
+          </div>
         </div>
         <div>
           <button
@@ -125,14 +168,14 @@ export default function SignupPage() {
           </button>
         </div>
         <div className="mx-auto">
-          <span className="text-white text-[0.875rem]">
+          <span className="text-white text-[0.75rem] md:text-[0.875rem]">
             Already got an account?{" "}
-            <Link className="text-light_green" to={"#"}>
+            <Link className="text-light_green" to={"/auth/login"}>
               Log in
             </Link>
           </span>
         </div>
       </form>
-    </>
+    </div>
   );
 }

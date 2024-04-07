@@ -41,13 +41,13 @@ export default function ProductPage() {
           </span>
           <div className="shadow-lg shadow-dark_ash/50 flex flex-col rounded-md font-agrandir_bold md:gap-12 gap-4 mb-10 md:p-8 p-4">
             <div className="flex md:flex-row flex-col md:gap-4 gap-2 ">
-              <div className="flex md:gap-2 gap-1 md:h-[30rem] h-44">
+              <div className="flex md:gap-2 gap-1 md:h-[15rem] lg:h-[30rem] h-44">
                 <div className="flex w-1/2 md:w-full flex-col gap-1 md:gap-2">
                   <div
                     style={{
                       backgroundImage: "url(" + product?.image_url + ")",
                     }}
-                    className={`md:w-80 h-full bg-center bg-no-repeat bg-cover bg-origin-border`}
+                    className={`md:w-40 lg:w-72 h-full bg-center bg-no-repeat bg-cover bg-origin-border`}
                   ></div>
                 </div>
                 <div className="flex w-1/2 md:w-full flex-col gap-2">
@@ -55,28 +55,28 @@ export default function ProductPage() {
                     style={{
                       backgroundImage: "url(" + product?.image_url + ")",
                     }}
-                    className={`md:w-80 h-full bg-no-repeat bg-cover bg-origin-border`}
+                    className={`md:w-40 lg:w-72 h-full bg-no-repeat bg-cover bg-origin-border`}
                   ></div>
                   <div
                     style={{
                       backgroundImage: "url(" + product?.image_url + ")",
                     }}
-                    className={`md:w-80 h-full bg-no-repeat bg-cover bg-origin-border`}
+                    className={`md:w-40 lg:w-72 h-full bg-no-repeat bg-cover bg-origin-border`}
                   ></div>
                 </div>
               </div>
               <div className="flex flex-col gap-1 md:gap-4">
-                <span className="flex md:text-[1.5rem] text-[1rem] font-agrandir_grandheavy font-bold">
+                <span className="flex lg:text-[1.5rem] text-[1rem] font-agrandir_grandheavy font-bold">
                   {product?.name}
                 </span>
-                <span className="flex md:text-[2rem] text-[1.2rem] font-agrandir_grandheavy font-bold text-green">
+                <span className="flex lg:text-[2rem] text-[1.2rem] font-agrandir_grandheavy font-bold text-green">
                   N{product?.price}
                 </span>
-                <ul className="flex list-disc text-ash px-2 md:px-8 gap-4 md:gap-12 md:text-base text-[0.75rem] font-agrandir">
+                <ul className="flex list-disc text-ash px-2 lg:px-8 gap-4 lg:gap-12 lg:text-base text-[0.75rem] font-agrandir">
                   {/* <li>{product?.location}.</li> */}
                   <li>Posted 4hrs ago.</li>
                 </ul>
-                <div className="flex flex-col font-agrandir md:text-[1.2rem] text-[0.875rem] text-ash">
+                <div className="flex flex-col font-agrandir lg:text-[1.2rem] text-[0.875rem] text-ash">
                   <h4 className="text-black">Description</h4>
                   <p>{product?.description}</p>
                   {/* <span>
@@ -86,11 +86,11 @@ export default function ProductPage() {
          <span>ID: ?</span> */}
                 </div>
                 <div className="flex justify-between font-agrandir">
-                  <div className="flex md:text-base text-[0.75rem] gap-2 md:gap-4">
+                  <div className="flex lg:text-base text-[0.75rem] gap-2 lg:gap-4">
                     <span>Quantity:</span>
-                    <div className="flex gap-2 md:gap-4 ">
+                    <div className="flex gap-2 lg:gap-4 ">
                       <button
-                        className="text-[1rem] md:text-[1.5rem] bg-ash/50 rounded-full leading-none w-4 md:w-6 h-4 md:h-6 flex justify-center"
+                        className="text-[1rem] lg:text-[1.5rem] bg-ash/50 rounded-full leading-none w-4 lg:w-6 h-4 lg:h-6 flex justify-center"
                         onClick={() => setCount(count + 1)}
                       >
                         <span className="my-auto flex pt-[0.1rem] leading-none">
@@ -99,7 +99,7 @@ export default function ProductPage() {
                       </button>
                       <span>{count}</span>
                       <button
-                        className="text-[1rem] md:text-[1.5rem] bg-ash/50 rounded-full leading-none w-4 md:w-6 h-4 md:h-6 flex justify-center"
+                        className="text-[1rem] lg:text-[1.5rem] bg-ash/50 rounded-full leading-none w-4 lg:w-6 h-4 lg:h-6 flex justify-center"
                         onClick={() => {
                           if (count > 1) setCount(count - 1);
                         }}
@@ -108,15 +108,15 @@ export default function ProductPage() {
                       </button>
                     </div>
                   </div>
-                  <span className="rounded-full text-[0.875rem] md:text-[1.2rem] p-1 md:p-2 bg-ash/50">
+                  <span className="rounded-full text-[0.875rem] lg:text-[1.2rem] p-1 lg:p-2 bg-ash/50">
                     <FaHeart color="#FF6161" />
                   </span>
                 </div>
-                <div className="flex gap-2 md:gap-4 mx-auto">
-                  <button className="px-2 md:px-4 md:py-2 py-1 md:text-base text-[0.75rem] text-white font-agrandir_bold rounded bg-light_green w-28 md:w-32">
+                <div className="flex gap-2 lg:gap-4 mx-auto">
+                  <button className="px-2 lg:px-4 lg:py-2 py-1 lg:text-base text-[0.75rem] text-white font-agrandir_bold rounded bg-light_green w-28 lg:w-32">
                     Buy Now
                   </button>
-                  <button className="px-2 md:px-4 md:py-2 py-1 md:text-base text-[0.75rem] text-light_green font-agrandir_bold rounded border border-2 border-light_green w-28 md:w-32 ">
+                  <button className="px-2 lg:px-4 lg:py-2 py-1 lg:text-base text-[0.75rem] text-light_green font-agrandir_bold rounded border border-2 border-light_green w-28 lg:w-32 ">
                     Add to Cart
                   </button>
                 </div>
