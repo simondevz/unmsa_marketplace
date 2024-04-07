@@ -1,6 +1,7 @@
 import axios from "axios";
 import { BASE } from "../api.routes";
 import { getAuthDetailsKey, getToken } from "./localStorage";
+import { isTokenValid, refreshToken } from "./token";
 
 // Custom axios instance based on headers needed
 export const customAxios = {
@@ -10,8 +11,11 @@ export const customAxios = {
     }),
   protected: async () => {
     try {
-      const token = await getToken(await getAuthDetailsKey());
+      let token = await getToken(await getAuthDetailsKey());
       if (!token?.accessToken) throw new Error("Please Log In to continue");
+      if (!(await isTokenValid(token.accessToken))) {
+        token = await refreshToken(token.refreshToken);
+      }
 
       const headers = {
         Authorization: `Bearer ${token?.accessToken}`,

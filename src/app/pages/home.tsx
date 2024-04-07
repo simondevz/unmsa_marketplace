@@ -3,10 +3,17 @@ import Bar from "../components/bar";
 import ProductRow from "../components/productRow";
 import BlogCard from "../components/cards/blogCard";
 import VendorRow from "../components/vendorRow";
+import { useGetProductsQuery, useGetSellersQuery } from "../api.routes";
+import Loading from "../components/loading";
+import { useAppSelector } from "../redux/hooks";
 
 export default function HomePage() {
   const navigate = useNavigate();
   const location = useLocation();
+
+  const userId = useAppSelector((state) => state.auth._id);
+  const getSellersRes = useGetSellersQuery({});
+  const getproductsRes = useGetProductsQuery({});
 
   return (
     <>
@@ -30,14 +37,17 @@ export default function HomePage() {
                   Go Shopping
                 </button>
                 <button
-                  onClick={() =>
-                    navigate("/auth/login", {
-                      state: { redirectUrl: location.pathname },
-                    })
-                  }
+                  onClick={() => {
+                    if (!userId)
+                      navigate("/auth/login", {
+                        state: { redirectUrl: location.pathname },
+                      });
+
+                    if (userId) navigate(`/profile/${userId}`);
+                  }}
                   className="px-4 py-2 text-white font-agrandir md:text-base text-[0.75rem] rounded-md border border-2 border-white md:w-36 w-28"
                 >
-                  Login
+                  {userId ? "View Profile" : "Login"}
                 </button>
               </div>
             </div>
@@ -128,7 +138,13 @@ export default function HomePage() {
           </div>
           <Bar text="All Products & Services" />
           <div className="flex flex-col gap-6 mb-4">
-            {/* <ProductRow /> */}
+            {getproductsRes?.isLoading ? (
+              <Loading />
+            ) : getproductsRes?.data && getproductsRes?.data?.length > 0 ? (
+              <ProductRow list={getproductsRes?.data} />
+            ) : (
+              <div>No Products Yet...</div>
+            )}
             <Link
               className="font-agrandir text-green text-[0.75rem] md:text-[0.875rem] underline"
               to={"#"}
@@ -148,7 +164,13 @@ export default function HomePage() {
           </div> */}
           <Bar text="Top selling products" />
           <div className="flex flex-col gap-6 mb-4">
-            {/* <ProductRow /> */}
+            {getproductsRes?.isLoading ? (
+              <Loading />
+            ) : getproductsRes?.data && getproductsRes?.data?.length > 0 ? (
+              <ProductRow list={getproductsRes?.data} />
+            ) : (
+              <div>No Products Yet...</div>
+            )}
             <Link
               className="font-agrandir text-green text-[0.75rem] md:text-[0.875rem] underline"
               to={"#"}
@@ -159,7 +181,13 @@ export default function HomePage() {
 
           <Bar text="UMNSA’s Top Sellers" />
           <div className="flex flex-col gap-6 mb-4">
-            <VendorRow />
+            {getSellersRes?.isLoading ? (
+              <Loading />
+            ) : getSellersRes?.data && getSellersRes?.data?.length > 0 ? (
+              <VendorRow vendors={getSellersRes?.data} />
+            ) : (
+              <div>No Vendors Yet...</div>
+            )}
           </div>
 
           <h3 className="font-agrandir_bold md:text-[1.5rem] text-[0.875rem] font-bold text-green">

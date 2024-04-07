@@ -73,7 +73,7 @@ export default function ProfilePage() {
                 ></div>
                 <div
                   className={
-                    (authId === data?.ownerId ? "block " : "hidden ") +
+                    (authId === data?.ownerId ? "flex " : "hidden ") +
                     " md:hidden gap-2 flex-col"
                   }
                 >
@@ -112,13 +112,18 @@ export default function ProfilePage() {
                   <InfoSpan
                     title="Contact Info"
                     value={
-                      ((data?.phoneNumer as string) +
+                      ((data?.phoneNumber as string) +
                         ", " +
                         data?.email) as string
                     }
                   />
                 </div>
-                <div className="flex justify-between lg:justify-start md:gap-6">
+                <div
+                  className={
+                    (authId === data?.ownerId ? "hidden " : "flex ") +
+                    " justify-between lg:justify-start md:gap-6"
+                  }
+                >
                   <button
                     className={
                       " flex bg-light_green text-white font-agrandir_bold text-[0.75rem] rounded-md md:py-2 md:px-2 py-[0.3rem] w-20 md:w-32"
@@ -169,14 +174,14 @@ export default function ProfilePage() {
             </div>
             <Divider />
             <div className="flex flex-col gap-4">
-              <div className="flex justify-between my-2">
+              <div className="flex justify-between my-4 -mx-2 md:mx-0">
                 <button
                   onClick={() => setCurrent_tab("tab_1")}
                   className={
                     (current_tab === "tab_1"
                       ? "bg-darker_lemon text-white "
                       : "bg-transparent hover:bg-ash/30x   ") +
-                    " flex whitespace-nowrap font-agrandir_bold md:text-base text-[0.65rem] md:p-2 px-2 py-1 rounded-sm"
+                    " flex whitespace-nowrap font-agrandir_bold md:text-base text-[0.75rem] md:p-2 px-3 py-2 rounded-full"
                   }
                 >
                   <span className="md:mx-6 my-auto">Services/Products</span>
@@ -187,7 +192,7 @@ export default function ProfilePage() {
                     (current_tab === "tab_2"
                       ? "bg-darker_lemon text-white "
                       : "bg-transparent hover:bg-ash/30x   ") +
-                    " flex whitespace-nowrap font-agrandir_bold md:text-base text-[0.65rem] md:p-2 px-2 py-1 rounded-sm"
+                    " flex whitespace-nowrap font-agrandir_bold md:text-base text-[0.75rem] md:p-2 px-3 py-2 rounded-full"
                   }
                 >
                   <span className="md:mx-12 my-auto">Reviews</span>
@@ -198,7 +203,7 @@ export default function ProfilePage() {
                     (current_tab === "tab_3"
                       ? "bg-darker_lemon text-white "
                       : "bg-transparent hover:bg-ash/30x   ") +
-                    " flex whitespace-nowrap font-agrandir_bold md:text-base text-[0.65rem] md:p-2 px-2 py-1 rounded-sm"
+                    " flex whitespace-nowrap font-agrandir_bold md:text-base text-[0.75rem] md:p-2 px-3 py-2 rounded-full"
                   }
                 >
                   <span className="md:mx-6 my-auto">Related Products</span>
@@ -207,11 +212,24 @@ export default function ProfilePage() {
               <Divider className="flex md:hidden -mt-4" />
               <div
                 className={
-                  (current_tab === "tab_1" ? "" : "hidden ") +
-                  "border border-green rounded-md px-4 py-3"
+                  (current_tab === "tab_1" ? "flex " : "hidden ") +
+                  "border border-green flex-col rounded-md px-4 py-3"
                 }
               >
                 {/* <ProductRow /> */}
+                <div className="flex flex-row-reverse">
+                  <button
+                    onClick={() => navigate("/shop/product/create")}
+                    className={
+                      (authId === data?.ownerId ? "flex " : "hidden ") +
+                      " w-36 bg-darker_lemon rounded-md py-2 text-[0.75rem] md:text-[0.875rem]"
+                    }
+                  >
+                    <span className="flex mx-auto font-agrandir_bold text-white">
+                      Add New Product
+                    </span>
+                  </button>
+                </div>
               </div>
               <div
                 className={

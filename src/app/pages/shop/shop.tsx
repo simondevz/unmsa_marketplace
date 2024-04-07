@@ -7,10 +7,13 @@ import { useGetProductsQuery } from "../../api.routes";
 import Loading from "../../components/loading";
 import { useEffect, useState } from "react";
 import { ProductType } from "../../types/productTypes";
+import { useAppSelector } from "../../redux/hooks";
 
 export default function ShopPage() {
   const navigate = useNavigate();
   const location = useLocation();
+
+  const userId = useAppSelector((state) => state.auth._id);
   const { data, isLoading, isSuccess } = useGetProductsQuery({});
   const [displayList, setDisplayList] = useState<ProductType[][]>();
 
@@ -47,7 +50,12 @@ export default function ShopPage() {
         <Loading />
       ) : (
         <section>
-          <div className="flex flex-col md:gap-4 gap-2 w-full justify-center p-2">
+          <div
+            className={
+              (userId ? "hidden " : "flex ") +
+              " flex-col md:gap-4 gap-2 w-full justify-center p-2"
+            }
+          >
             <span className="flex mx-auto font-agrandir_bold text-black md:text-base text-[0.5rem] ">
               You have to create an account or log in to be able to buy or sell
             </span>
@@ -133,10 +141,10 @@ export default function ShopPage() {
               </Link> */}
             </div>
 
-            <Bar text="UMNSA’s Top Sellers" />
+            {/* <Bar text="UMNSA’s Top Sellers" />
             <div className="flex flex-col gap-6 mb-4">
               <VendorRow />
-            </div>
+            </div> */}
 
             <h3 className="font-agrandir_bold md:text-[1.5rem] text-[0.875rem] font-bold text-green">
               See what’s happening in UNMSA

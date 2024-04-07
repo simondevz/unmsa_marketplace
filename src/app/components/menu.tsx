@@ -1,4 +1,5 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
+import { useAppSelector } from "../redux/hooks";
 
 export default function Menu({
   display,
@@ -7,6 +8,9 @@ export default function Menu({
   display: boolean;
   setDisplay: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
+  const userId = useAppSelector((state) => state.auth._id);
+  const location = useLocation();
+
   return (
     <div
       className={
@@ -73,9 +77,10 @@ export default function Menu({
         className={
           "font-semibold text-white bg-green px-10 py-4 border-b border-b-green"
         }
-        to={"#"}
+        to={userId ? `/profile/${userId}` : `/auth/login`}
+        state={{ redirectUrl: location.pathname }}
       >
-        Login/Sign Up
+        {userId ? "Profile" : "Login"}
       </NavLink>
     </div>
   );

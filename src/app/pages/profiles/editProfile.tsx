@@ -1,10 +1,10 @@
-import { Form, useNavigate } from "react-router-dom";
+import { Form } from "react-router-dom";
 import default_image_url from "../../assets/image/default_profile_pic.png";
 import edit_icon from "../../assets/icons/edit_icon.png";
-import ProductRow from "../../components/productRow";
+// import ProductRow from "../../components/productRow";
 
 export default function EditProfilePage() {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const Divider = () => {
     return <div className="bg-ash h-[2px] rounded-full w-full flex "></div>;
   };
@@ -120,7 +120,7 @@ export default function EditProfilePage() {
           </div>
           <Divider />
           <div className="flex flex-col gap-4">
-            <div className="flex justify-between">
+            {/* <div className="flex justify-between">
               <span className="my-auto font-agrandir text-green">
                 Your Services/Products
               </span>
@@ -132,15 +132,8 @@ export default function EditProfilePage() {
               >
                 <span className="mx-6 my-auto">Add Product</span>
               </button>
-            </div>
-            <div
-              className={
-                "border border-green rounded-md px-4 py-3 gap-4 flex flex-col"
-              }
-            >
-              <div>{/* <ProductRow /> */}</div>
-              <div>{/* <ProductRow /> */}</div>
-            </div>
+            </div> */}
+
             <div className="flex justify-between">
               <span className="my-auto font-agrandir text-green">
                 Payment Details

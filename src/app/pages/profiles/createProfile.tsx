@@ -26,7 +26,6 @@ export default function CreateProfilePage() {
   const dispatch = useAppDispatch();
   const redirectUrl = location.state?.redirectUrl;
   const submitButtonRef = useRef<HTMLButtonElement>(null);
-  console.log(data);
 
   // Update the signup data fron the values in our url
   useMemo(() => {
@@ -58,7 +57,6 @@ export default function CreateProfilePage() {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event?.preventDefault();
-    console.log("called");
 
     if (userId) {
       createProfileFn(profileData);
@@ -70,18 +68,18 @@ export default function CreateProfilePage() {
 
   // TODO: add value to input
   return (
-    <section className="flex flex-col gap-6 py-6 px-12">
-      <div className="flex px-10 py-8 bg-lighter_green rounded-lg">
-        <span className="text-dark_green font-agrandir_bold my-auto">
+    <section className="flex flex-col gap-4 md:gap-6 py-4 md:py-6 px-4 text-[0.875rem] md:text-base md:px-12">
+      <div className="flex px-4 md:px-10 py-2 md:py-8 bg-lighter_green rounded-lg">
+        <span className="text-dark_green text-[0.75rem] md:text-base font-agrandir_bold my-auto">
           To preserve authenticity on the marketplace, your identity details are
           required to sign up.
         </span>
       </div>
       <form
         onSubmit={handleSubmit}
-        className="flex flex-col gap-6 shadow-lg rounded-lg p-6"
+        className="flex flex-col gap-4 md:gap-6 shadow-lg rounded-lg p-4 md:p-6"
       >
-        <span className="text-green font-agrandir_bold text-[1.5rem]">
+        <span className="text-green font-agrandir_bold text-[1rem] md:text-[1.5rem]">
           Input profile details
         </span>
         {/* Todo: No endpoint for this yet so just designs for now */}
@@ -94,7 +92,7 @@ export default function CreateProfilePage() {
           <input type={"file"} className="hidden" />
         </div> */}
 
-        <div className="flex flex-col px-4 gap-2 w-3/5 font-agrandir">
+        <div className="flex flex-col px-2 md:px-4 gap-2 md:w-3/5 max-w-[20rem] md:max-w-full font-agrandir">
           <label htmlFor="brandName" className="font-agrandir">
             <span>Brand name</span>
           </label>
@@ -106,7 +104,7 @@ export default function CreateProfilePage() {
             className="border-2 border-dark_ash_2 bg-milky_white p-2 rounded-md outline-none w-full"
           />
         </div>
-        <div className="flex flex-col px-4 gap-2 w-3/5 font-agrandir">
+        <div className="flex flex-col px-2 md:px-4 gap-2 md:w-3/5 max-w-[20rem] md:max-w-full font-agrandir">
           <label htmlFor="gender" className="font-agrandir">
             <span>Gender</span>
           </label>
@@ -125,7 +123,7 @@ export default function CreateProfilePage() {
             <option value={"Female"}>Female</option>
           </select>
         </div>
-        <div className="flex flex-col px-4 gap-2 w-3/5 font-agrandir">
+        <div className="flex flex-col px-2 md:px-4 gap-2 md:w-3/5 max-w-[20rem] md:max-w-full font-agrandir">
           <label htmlFor="department" className="font-agrandir">
             <span>Department</span>
           </label>
@@ -137,7 +135,7 @@ export default function CreateProfilePage() {
             className="border-2 border-dark_ash_2 bg-milky_white p-2 rounded-md outline-none w-full"
           />
         </div>
-        <div className="flex flex-col px-4 gap-2 w-3/5 font-agrandir">
+        <div className="flex flex-col px-2 md:px-4 gap-2 md:w-3/5 max-w-[20rem] md:max-w-full font-agrandir">
           <label htmlFor="level" className="font-agrandir">
             <span>Level</span>
           </label>
@@ -149,7 +147,7 @@ export default function CreateProfilePage() {
             className="border-2 border-dark_ash_2 bg-milky_white p-2 rounded-md outline-none w-full"
           />
         </div>
-        <div className="flex flex-col px-4 gap-2 w-3/5 font-agrandir">
+        <div className="flex flex-col px-2 md:px-4 gap-2 md:w-3/5 max-w-[20rem] md:max-w-full font-agrandir">
           <label htmlFor="location" className="font-agrandir">
             <span>Location</span>
           </label>
@@ -161,7 +159,7 @@ export default function CreateProfilePage() {
             className="border-2 border-dark_ash_2 bg-milky_white p-2 rounded-md outline-none w-full"
           />
         </div>
-        <div className="flex flex-col px-4 gap-2 w-3/5 font-agrandir">
+        <div className="flex flex-col px-2 md:px-4 gap-2 md:w-3/5 max-w-[20rem] md:max-w-full font-agrandir">
           <label htmlFor="phoneNumber" className="font-agrandir">
             Phone Number
           </label>
@@ -176,18 +174,19 @@ export default function CreateProfilePage() {
         {/* Mistakenly placed my button wrongly before styling, so this fix is to prevent restyling */}
         <button className="hidden" ref={submitButtonRef}></button>
       </form>
-      <div className="flex flex-row-reverse px-4">
+      <div className="flex flex-row-reverse px-2 md:px-4">
         <button
           disabled={isLoading}
           onClick={() => {
             submitButtonRef?.current?.click();
           }}
-          className="text-center px-8 py-3 font-agrandir text-white bg-orange rounded-sm"
+          className="text-center px-6 md:px-8 py-2 md:py-3 font-agrandir text-white bg-orange rounded-sm"
         >
           <ClipLoader color="#fff" size={"1rem"} loading={isLoading} />
           <span
             className={
-              (isLoading ? "hidden " : "flex ") + " my-auto text-[0.875rem]"
+              (isLoading ? "hidden " : "flex ") +
+              " my-auto text-[0.75rem] md:text-[0.875rem]"
             }
           >
             Save Changes
