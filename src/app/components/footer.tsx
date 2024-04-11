@@ -10,7 +10,7 @@ export default function Footer() {
     <footer className="flex flex-col gap-4 p-4 md:p-8 bg-green ">
       <div className="flex flex-col justify-center w-full">
         <div className="flex gap-4 flex-col md:flex-row mx-auto">
-          <div className="flex flex-col md:flex-row gap-4">
+          {/* <div className="flex flex-col md:flex-row gap-4">
             <img
               className="w-10 md:w-12 h-14 md:h-16 my-auto mx-auto"
               src={unn_logo}
@@ -34,7 +34,7 @@ export default function Footer() {
                 </span>
               </div>
             </div>
-          </div>
+          </div> */}
           <div className="md:w-80">
             <span className="font-calibri leading-tight md:text-[1.5rem] flex text-center md:text-left text-white">
               University of Nigeria Medical Students’ Association (UNMSA)

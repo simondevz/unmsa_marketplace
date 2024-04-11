@@ -8,7 +8,7 @@ import { ClipLoader } from "react-spinners";
 
 export default function CreateProfilePage() {
   const userId = useAppSelector((state) => state.auth._id);
-  const [createProfileFn, { data, isSuccess, isLoading }] =
+  const [createProfileFn, { data, isSuccess, isLoading }] = // TODO: error handling
     useCreateProfileMutation();
   const [profileData, setProfileData] = useState<Partial<ProfileDetailsType>>({
     email: "",
@@ -17,6 +17,8 @@ export default function CreateProfilePage() {
     department: "",
     level: "",
     location: "",
+    image: null,
+    phoneNumber: "",
   });
 
   const [searchParams] = useSearchParams();
@@ -46,7 +48,7 @@ export default function CreateProfilePage() {
       dispatch(updateCurrentUserProfile(data));
       navigate(redirectUrl ? redirectUrl : "/");
     }
-  });
+  }, [data, dispatch, isSuccess, navigate, redirectUrl]);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setProfileData({
@@ -55,15 +57,28 @@ export default function CreateProfilePage() {
     });
   };
 
+  const uploadImage = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setProfileData({
+      ...profileData,
+      image: event.target.files?.[0],
+    });
+  };
+
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event?.preventDefault();
+    if (!userId) throw new Error("Please Log in");
 
-    if (userId) {
-      createProfileFn(profileData);
-    } else {
-      // TODO: fix this
-      console.log("create error for this, the user is not signed in");
-    }
+    const formData = new FormData();
+    // Error checks?
+    formData.append("brandName", profileData.brandName as string);
+    formData.append("department", profileData.department as string);
+    formData.append("gender", String(profileData.gender));
+    formData.append("image", profileData.image);
+    formData.append("email", String(profileData.email));
+    formData.append("location", String(profileData.location));
+    formData.append("level", String(profileData.level));
+    formData.append("phoneNumber", String(profileData.phoneNumber));
+    createProfileFn(formData);
   };
 
   // TODO: add value to input
@@ -82,15 +97,33 @@ export default function CreateProfilePage() {
         <span className="text-green font-agrandir_bold text-[1rem] md:text-[1.5rem]">
           Input profile details
         </span>
-        {/* Todo: No endpoint for this yet so just designs for now */}
-        {/* <div>
-          <label className="flex justify-center bg-ash_2 w-80 h-72 rounded-sm">
-            <span className="text-black font-agrandir_bold my-auto text-[0.875rem] text-center w-36">
-              Upload up to 3 images 200*200px
-            </span>
+        <div>
+          <label
+            htmlFor="image"
+            className="flex justify-around bg-ash_2 rounded-sm md:w-80 w-full md:h-72 h-40"
+          >
+            {profileData.image ? (
+              <img
+                src={URL.createObjectURL(profileData?.image)}
+                alt="product preview"
+              />
+            ) : (
+              <span className="flex font-agrandir_bold md:text-[0.875rem] text-[0.5rem] text-center w-36 my-auto">
+                Upload a profile image 200*200px
+              </span>
+            )}
           </label>
-          <input type={"file"} className="hidden" />
-        </div> */}
+          <input
+            name="image"
+            id="image"
+            type={"file"}
+            accept="image/*"
+            // multiple
+            onChange={uploadImage}
+            alt="product-image"
+            className="hidden"
+          />
+        </div>
 
         <div className="flex flex-col px-2 md:px-4 gap-2 md:w-3/5 max-w-[20rem] md:max-w-full font-agrandir">
           <label htmlFor="brandName" className="font-agrandir">

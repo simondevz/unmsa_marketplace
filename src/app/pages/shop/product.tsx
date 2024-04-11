@@ -1,9 +1,10 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { FaHeart } from "react-icons/fa";
 import { useNavigate, useParams } from "react-router-dom";
 import { ProductType } from "../../types/productTypes";
 import { useGetProductByIdQuery } from "../../api.routes";
 import Loading from "../../components/loading";
+import { addToCart, isInCart, removeFromCart } from "../../utils/localStorage";
 // import defaultProfilePic from "../../assets/image/default_profile_pic.png";
 
 export default function ProductPage() {
@@ -15,6 +16,13 @@ export default function ProductPage() {
 
   const navigate = useNavigate();
   const [product, setProduct] = useState<ProductType>();
+  const [inCart, setInCart] = useState<boolean>(false);
+
+  useMemo(() => {
+    if (productId) {
+      setInCart(isInCart(productId));
+    }
+  }, [productId]);
 
   useEffect(() => {
     if (isSuccess) setProduct(data[0]);
@@ -34,9 +42,9 @@ export default function ProductPage() {
             <button onClick={() => navigate(-1)} className="font-agrandir">
               {"< Back /"}
             </button>
-            <span className="font-agrandir">
+            {/* <span className="font-agrandir">
               {product?.category || "Phone & PC"} /
-            </span>
+            </span> */}
             <span className="font-agrandir_bold">{product?.name}</span>
           </span>
           <div className="shadow-lg shadow-dark_ash/50 flex flex-col rounded-md font-agrandir_bold md:gap-12 gap-4 mb-10 md:p-8 p-4">
@@ -113,11 +121,26 @@ export default function ProductPage() {
                   </span>
                 </div>
                 <div className="flex gap-2 lg:gap-4 mx-auto">
-                  <button className="px-2 lg:px-4 lg:py-2 py-1 lg:text-base text-[0.75rem] text-white font-agrandir_bold rounded bg-light_green w-28 lg:w-32">
+                  <button
+                    onClick={() => navigate("/shop/checkout")}
+                    className="px-2 lg:px-4 lg:py-2 py-1 lg:text-base text-[0.75rem] text-white font-agrandir_bold rounded bg-light_green w-28 lg:w-32"
+                  >
                     Buy Now
                   </button>
-                  <button className="px-2 lg:px-4 lg:py-2 py-1 lg:text-base text-[0.75rem] text-light_green font-agrandir_bold rounded border border-2 border-light_green w-28 lg:w-32 ">
-                    Add to Cart
+                  <button
+                    onClick={() => {
+                      if (productId)
+                        if (inCart) {
+                          removeFromCart(productId);
+                          setInCart(false);
+                        } else {
+                          addToCart(productId, count);
+                          setInCart(true);
+                        }
+                    }}
+                    className="px-2 lg:px-4 lg:py-2 py-1 lg:text-base text-nowrap text-[0.75rem] text-light_green font-agrandir_bold rounded border border-2 border-light_green w-fit "
+                  >
+                    {inCart ? "Remove from Cart" : "Add to Cart"}
                   </button>
                 </div>
               </div>

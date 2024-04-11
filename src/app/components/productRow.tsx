@@ -14,6 +14,7 @@ export default function ProductRow({ list }: { list: ProductType[] }) {
               name={item.name}
               quantity={item.quantity}
               product_id={item.product_id}
+              ownerId={item.owner}
             />
           );
         })}

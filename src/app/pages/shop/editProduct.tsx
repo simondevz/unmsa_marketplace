@@ -1,7 +1,11 @@
-import { useEffect, useRef, useState } from "react";
-import { Form, useLocation, useNavigate } from "react-router-dom";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { Form, useLocation, useNavigate, useParams } from "react-router-dom";
 import { ProductType } from "../../types/productTypes";
-import { useCreateProductMutation } from "../../api.routes";
+import {
+  useCreateProductMutation,
+  useLazyGetProductByIdQuery,
+  useUpdateProductMutation,
+} from "../../api.routes";
 import { ClipLoader } from "react-spinners";
 import { useAppSelector } from "../../redux/hooks";
 
@@ -9,10 +13,16 @@ export default function EditProductPage() {
   const location = useLocation();
   const pathname = location.pathname;
   const pageType = pathname.includes("/create") ? "Create" : "Edit";
+  const params = useParams();
 
+  const productId: string = params.productId || "";
   const submitButtonRef = useRef<HTMLButtonElement>(null);
   const navigate = useNavigate();
+  const categories = useAppSelector((state) => state.shop.categories);
+
   const userId = useAppSelector((state) => state.auth._id);
+  const [getProductFn, getProductRes] = useLazyGetProductByIdQuery();
+  const [updateProductFn, updateProductRes] = useUpdateProductMutation();
 
   const [errorMsg, setErrorMsg] = useState<string>("");
   const [creatProductFn, { data, isLoading, isSuccess }] =
@@ -20,10 +30,34 @@ export default function EditProductPage() {
   const [productData, setProductData] = useState<Partial<ProductType>>({
     name: "",
     price: 0.0,
+    category: "",
     image: null,
     description: "",
     quantity: 0,
   });
+
+  // get product for editing if product id exists
+  useEffect(() => {
+    if (productId) getProductFn({ product_id: productId });
+  }, [getProductFn, productId]);
+
+  // update productData object
+  useMemo(() => {
+    if (getProductRes.isSuccess) {
+      setProductData({
+        name: getProductRes.data[0].name,
+        price: Number(getProductRes?.data?.[0]?.price),
+        image_url: getProductRes?.data?.[0]?.image_url,
+        description: getProductRes?.data?.[0]?.description,
+        quantity: getProductRes?.data?.[0]?.quantity,
+        category: getProductRes?.data?.[0]?.category,
+      });
+    }
+
+    if (getProductRes.isError) {
+      setErrorMsg("Could not fetch product details");
+    }
+  }, [getProductRes.data, getProductRes.isError, getProductRes.isSuccess]);
 
   // todo: handle redirection after creating product
   useEffect(() => {
@@ -40,40 +74,61 @@ export default function EditProductPage() {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (!userId) throw new Error("Please Log in");
-    const formData = new FormData();
 
-    formData.append("name", productData.name as string);
+    // Error checks
     if (!productData?.name) {
       setErrorMsg("Please add a Product Name");
       return;
     }
 
-    formData.append("description", productData.description as string);
     if (!productData?.description) {
       setErrorMsg("Please add a Description");
       return;
     }
 
-    formData.append("image", productData.image);
-    if (!productData?.image) {
+    if (!productData?.image && !productData?.image_url) {
       setErrorMsg("Please add an Image");
       return;
     }
 
-    formData.append("price", String(productData.price));
     if (!productData?.price) {
       setErrorMsg("Please add a price for your Product");
       return;
     }
 
-    formData.append("quantity", String(productData.quantity));
-    creatProductFn(formData);
+    if (!productData?.category) {
+      setErrorMsg("Please add a category for your Product");
+      return;
+    }
+
+    if (pageType === "Create") {
+      const formData = new FormData();
+      formData.append("name", productData.name as string);
+      formData.append("description", productData.description as string);
+      formData.append("price", String(productData.price));
+      formData.append("image", productData.image);
+      formData.append("category", String(productData.category));
+      formData.append("quantity", String(productData.quantity));
+      creatProductFn(formData);
+    } else {
+      updateProductFn({
+        id: productId,
+        updateBody: {
+          name: productData.name,
+          price: productData.price,
+          description: productData.description,
+          quantity: productData.quantity,
+          category: productData.category,
+        },
+      });
+    }
   };
+
+  console.log(productData);
 
   const Divider = () => {
     return <div className="bg-ash h-[2px] rounded-full w-full flex "></div>;
   };
-  console.log(data);
 
   return (
     <>
@@ -140,6 +195,44 @@ export default function EditProductPage() {
               </div>
 
               <div className="flex flex-col gap-4">
+                <label htmlFor="category" className="flex flex-col">
+                  <span className="md:text-[1.2rem]">Product Category</span>
+                </label>
+                <div className="max-w-[30rem]">
+                  <select
+                    name="category"
+                    id="category"
+                    onChange={(event) => {
+                      setProductData({
+                        ...productData,
+                        category: event.target.value,
+                      });
+                    }}
+                    className="md:px-4 px-2 py-2 border-2 w-full flex border-dark_ash_2 text-[0.75rem] md:text-base rounded-md bg-milky_white"
+                  >
+                    <option
+                      value={""}
+                      disabled
+                      selected={productData.category === ""}
+                    >
+                      Pick a Category
+                    </option>
+                    {categories.map((category, index) => {
+                      return (
+                        <option
+                          value={category}
+                          key={index}
+                          selected={productData.category === category}
+                        >
+                          {category}
+                        </option>
+                      );
+                    })}
+                  </select>
+                </div>
+              </div>
+
+              <div className="flex flex-col gap-4">
                 <label htmlFor="quantity" className="flex flex-col">
                   <span className="md:text-[1.2rem]">
                     Number in stock (0-1000)
@@ -198,9 +291,13 @@ export default function EditProductPage() {
                   htmlFor="image"
                   className="flex justify-around bg-ash_2 rounded-sm md:w-80 w-full md:h-72 h-40"
                 >
-                  {productData.image ? (
+                  {productData.image || productData.image_url ? (
                     <img
-                      src={URL.createObjectURL(productData?.image)}
+                      src={
+                        productData?.image
+                          ? URL.createObjectURL(productData?.image)
+                          : productData?.image_url
+                      }
                       alt="product preview"
                     />
                   ) : (
