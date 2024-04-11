@@ -101,10 +101,16 @@ export default function HomePage() {
             Go ahead and give the demo a try!
           </p>
           <div className="flex md:gap-4 gap-2 mx-auto">
-            <button className="md:px-4 px-2 py-2 text-white md:text-base text-[0.75rem] font-agrandir_bold rounded-md bg-light_green md:w-40 w-32">
+            <button
+              onClick={() => navigate("/cbt-demo")}
+              className="md:px-4 px-2 py-2 text-white md:text-base text-[0.75rem] font-agrandir_bold rounded-md bg-light_green md:w-40 w-32"
+            >
               Take CBT(demo)
             </button>
-            <button className="md:px-4 px-2 py-2 text-white md:text-base text-[0.75rem] font-agrandir_bold rounded-md border border-2 border-white md:w-40 w-32 ">
+            <button
+              onClick={() => navigate("/about")}
+              className="md:px-4 px-2 py-2 text-white md:text-base text-[0.75rem] font-agrandir_bold rounded-md border border-2 border-white md:w-40 w-32 "
+            >
               More about Us
             </button>
           </div>

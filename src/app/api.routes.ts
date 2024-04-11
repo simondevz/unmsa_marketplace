@@ -4,7 +4,10 @@ import type {
   LoginType,
   SignupType,
 } from "./types/authTypes";
-import { ProfileDetailsType } from "./types/profileTypes";
+import {
+  ProfileDetailsType,
+  UpdateProfileDetailsType,
+} from "./types/profileTypes";
 import { ProductType, UpdateProductType } from "./types/productTypes";
 import { customAxios } from "./utils/customAxios";
 import { isTokenValid, refreshToken } from "./utils/token";
@@ -90,6 +93,7 @@ export const protectedRoutesApi = createApi({
       }
     },
   }),
+
   endpoints: (builder) => ({
     getProfileDetails: builder.query<
       ProfileDetailsType,
@@ -101,14 +105,25 @@ export const protectedRoutesApi = createApi({
       }),
     }),
 
-    createProfile: builder.mutation<
+    createProfile: builder.mutation<ProfileDetailsType, FormData>({
+      queryFn: async (formdata) => {
+        const fetcher = await customAxios.multipartForm();
+        const { data }: { data: ProfileDetailsType } = await fetcher.post(
+          "/sellers",
+          formdata
+        );
+        return { data };
+      },
+    }),
+
+    updateProfile: builder.mutation<
       ProfileDetailsType,
-      Partial<ProfileDetailsType>
+      Partial<UpdateProfileDetailsType>
     >({
       query: (body) => ({
-        url: `/sellers`,
-        method: "POST",
-        body,
+        url: `sellers/${body?.id}`,
+        method: "PUT",
+        body: body.updateBody,
       }),
     }),
 
@@ -127,7 +142,7 @@ export const protectedRoutesApi = createApi({
     updateProduct: builder.mutation<ProductType, Partial<UpdateProductType>>({
       query: (body) => ({
         url: `/products/update/${body.id}`,
-        method: "POST",
+        method: "PUT",
         body: { updateBody: body.updateBody },
       }),
     }),
@@ -139,13 +154,16 @@ export const {
   useSignupMutation,
   useCheckCredentialsMutation,
   useGetProductByIdQuery,
+  useLazyGetProductByIdQuery,
   useGetProductsQuery,
   useGetSellersQuery,
 } = unprotectedRoutesApi;
 
 export const {
+  useGetProfileDetailsQuery,
   useLazyGetProfileDetailsQuery,
   useCreateProfileMutation,
   useCreateProductMutation,
   useUpdateProductMutation,
+  useUpdateProfileMutation,
 } = protectedRoutesApi;

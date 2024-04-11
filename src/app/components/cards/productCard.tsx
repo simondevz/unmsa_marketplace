@@ -1,5 +1,6 @@
+import { useAppSelector } from "../../redux/hooks";
 import FilledButton from "../buttons/filledButton";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export default function ProductCard({
   image_url,
@@ -7,14 +8,20 @@ export default function ProductCard({
   name,
   quantity,
   product_id,
+  ownerId,
 }: {
   product_id: string;
   image_url: string;
   price: number;
   name: string;
   quantity: number;
+  ownerId: string;
 }) {
   const navigate = useNavigate();
+  const location = useLocation();
+  const userId = useAppSelector((state) => state.auth._id);
+  const pathname = location.pathname;
+
   return (
     <div className=" flex flex-col border border-2 border-green rounded-lg md:min-w-48 min-w-36">
       <div
@@ -35,11 +42,19 @@ export default function ProductCard({
         <span className="md:text-[0.875rem] text-[0.75rem] text-light_ash font-agrandir">
           Number Left: {quantity}
         </span>
-        <FilledButton
-          onClick={() => navigate(`/shop/products/${name}/${product_id}`)}
-          text="Buy"
-          color="green"
-        />
+        {userId === ownerId && pathname.includes("/profile/") ? (
+          <FilledButton
+            onClick={() => navigate(`/shop/product/edit/${product_id}`)}
+            text="Edit"
+            color="green"
+          />
+        ) : (
+          <FilledButton
+            onClick={() => navigate(`/shop/products/${name}/${product_id}`)}
+            text="Buy"
+            color="green"
+          />
+        )}
       </div>
     </div>
   );

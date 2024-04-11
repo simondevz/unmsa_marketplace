@@ -2,7 +2,10 @@ import { useEffect, useState } from "react";
 import default_image_url from "../../assets/image/default_profile_pic.png";
 import ProductRow from "../../components/productRow";
 import { useNavigate, useParams } from "react-router-dom";
-import { useLazyGetProfileDetailsQuery } from "../../api.routes";
+import {
+  useGetProductsQuery,
+  useLazyGetProfileDetailsQuery,
+} from "../../api.routes";
 import { useAppSelector } from "../../redux/hooks";
 import Loading from "../../components/loading";
 
@@ -10,6 +13,7 @@ export default function ProfilePage() {
   const accessToken = useAppSelector((state) => state.auth.accessToken);
   const authId = useAppSelector((state) => state.auth._id);
   const [current_tab, setCurrent_tab] = useState<string>("tab_1");
+  const getproductsRes = useGetProductsQuery({});
 
   const navigate = useNavigate();
   const { userId } = useParams();
@@ -19,8 +23,6 @@ export default function ProfilePage() {
   useEffect(() => {
     if (accessToken) getProfileDetails({ ownerId: userId });
   }, [accessToken, getProfileDetails, userId]);
-
-  console.log("data", data);
 
   const handleEditProfile = (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>
@@ -66,9 +68,12 @@ export default function ProfilePage() {
             <div className="flex flex-col md:flex-row md:gap-6 gap-2 justify-between w-full">
               <div className="flex justify-between">
                 <div
-                  className="bg-no-repeat bg-cover lg:h-52 lg:w-52 md:h-40 md:w-40 flex md:rounded-sm rounded-full h-24 w-24"
+                  className="bg-no-repeat bg-cover bg-center lg:h-52 lg:w-52 md:h-40 md:w-40 flex md:rounded-sm rounded-full h-24 w-24"
                   style={{
-                    backgroundImage: "url(" + default_image_url + ")",
+                    backgroundImage:
+                      "url(" +
+                      (data?.image_url ? data?.image_url : default_image_url) +
+                      ")",
                   }}
                 ></div>
                 <div
@@ -213,10 +218,16 @@ export default function ProfilePage() {
               <div
                 className={
                   (current_tab === "tab_1" ? "flex " : "hidden ") +
-                  "border border-green flex-col rounded-md px-4 py-3"
+                  "border border-green flex-col rounded-md px-4 py-3 gap-2 md:gap-4"
                 }
               >
-                {/* <ProductRow /> */}
+                {getproductsRes?.isLoading ? (
+                  <Loading />
+                ) : getproductsRes?.data && getproductsRes?.data?.length > 0 ? (
+                  <ProductRow list={getproductsRes?.data} />
+                ) : (
+                  <div>No Products Yet...</div>
+                )}
                 <div className="flex flex-row-reverse">
                   <button
                     onClick={() => navigate("/shop/product/create")}

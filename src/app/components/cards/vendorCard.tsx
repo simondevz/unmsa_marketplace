@@ -6,7 +6,11 @@ export default function VendorCard({ vendor }: { vendor: ProfileDetailsType }) {
   return (
     <div className="flex md:flex-col gap-4 border-2 text-center border-green px-4 pt-2 pb-4 md:gap-0.5 rounded-md">
       <div
-        style={{ backgroundImage: `url(${defaultPic})` }}
+        style={{
+          backgroundImage: `url(${
+            vendor?.image_url ? vendor?.image_url : defaultPic
+          })`,
+        }}
         className="w-32 h-32 bg-no-repeat bg-cover bg-origin-border bg-center mx-auto flex"
       ></div>
       <div className="w-40">

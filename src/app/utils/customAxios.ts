@@ -14,6 +14,8 @@ export const customAxios = {
       let token = await getToken(await getAuthDetailsKey());
       if (!token?.accessToken) throw new Error("Please Log In to continue");
       if (!(await isTokenValid(token.accessToken))) {
+        console.log("not valid...");
+
         token = await refreshToken(token.refreshToken);
       }
 
@@ -30,8 +32,13 @@ export const customAxios = {
   },
   multipartForm: async () => {
     try {
-      const token = await getToken(await getAuthDetailsKey());
+      let token = await getToken(await getAuthDetailsKey());
       if (!token?.accessToken) throw new Error("Please Log In to continue");
+      if (!(await isTokenValid(token.accessToken))) {
+        console.log("not valid...");
+
+        token = await refreshToken(token.refreshToken);
+      }
 
       const headers = {
         Authorization: `Bearer ${token?.accessToken}`,
