@@ -14,7 +14,7 @@ export default function BlogListPage() {
       </div>
       <div>
         <div className="flex flex-col py-2 md:gap-4 gap-2">
-          {blogData.reverse().map((post, index) => {
+          {blogData.map((post, index) => {
             return (
               <BlogCard
                 key={index}
@@ -23,6 +23,7 @@ export default function BlogListPage() {
                 author={post.author}
                 date={post.date}
                 image={post.image}
+                id={index}
               />
             );
           })}

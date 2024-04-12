@@ -1,6 +1,4 @@
 import { Link, NavLink } from "react-router-dom";
-import unmsa_logo from "../assets/logo/unmsa_logo.png";
-import unn_logo from "../assets/logo/unn_logo.png";
 import { blogData } from "../utils/blogStuff";
 
 export default function Footer() {
@@ -104,7 +102,11 @@ export default function Footer() {
           <div className="grid md:grid-cols-2 grid-cols-1 font-agrandir text-white text-[0.875rem]">
             {blogData.map((data, index: number) => {
               return (
-                <Link className="mb-4 px-4 w-64" key={index} to={"#"}>
+                <Link
+                  className="mb-4 px-4 w-64"
+                  key={index}
+                  to={"/blog/" + index}
+                >
                   {data.title}
                 </Link>
               );
@@ -122,8 +124,10 @@ export default function Footer() {
               Instagram
             </Link>
             <Link to={"https://youtube.com/@unmsaofficial4573"}>YouTube</Link>
-            {/* <Link to={"#"}>Facebook</Link>
-            <Link to={"#"}>Email</Link> */}
+            <Link to={"https://facebook.com/groups/1434472103438354/"}>
+              Facebook
+            </Link>
+            {/* <Link to={"#"}>Email</Link> */}
           </div>
         </div>
       </div>

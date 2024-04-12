@@ -7,18 +7,19 @@ export default function BlogCard({
   author,
   date,
   image,
+  id,
 }: BlogCardType) {
   return (
     <Link
       className="flex md:gap-4 gap-2 md:p-4 p-2 border border-green border-2 rounded-md"
-      to={"#"}
+      to={"/blog/" + id}
     >
       <div
         style={{
           backgroundImage: "url(" + image + ")",
         }}
         className={
-          "md:w-36 w-28 md:h-36 h-28 bg-no-repeat bg-center bg-cover bg-origin-border rounded-sm"
+          "md:w-36 w-28 md:h-36 h-40 bg-no-repeat bg-center bg-contain bg-origin-border rounded-sm"
         }
       ></div>
       <div className="flex flex-col w-3/5 justify-between py-2">
