@@ -1,5 +1,5 @@
 import BlogCard from "../../components/cards/blogCard";
-import Pagination from "../../components/pagination";
+import { blogData } from "../../utils/blogStuff";
 
 export default function BlogListPage() {
   return (
@@ -14,26 +14,20 @@ export default function BlogListPage() {
       </div>
       <div>
         <div className="flex flex-col py-2 md:gap-4 gap-2">
-          {Array(6)
-            .fill({
-              title: "Meet the new Execs",
-              preText: "Post preamble blah blah blah...",
-              author: "Mahley",
-              date: "12th January, 2024",
-            })
-            .map((post, index) => {
-              return (
-                <BlogCard
-                  key={index}
-                  title={post.title}
-                  preText={post.preText}
-                  author={post.author}
-                  date={post.date}
-                />
-              );
-            })}
+          {blogData.reverse().map((post, index) => {
+            return (
+              <BlogCard
+                key={index}
+                title={post.title}
+                preText={post.preText}
+                author={post.author}
+                date={post.date}
+                image={post.image}
+              />
+            );
+          })}
         </div>
-        <Pagination />
+        {/* <Pagination /> */}
       </div>
     </section>
   );
