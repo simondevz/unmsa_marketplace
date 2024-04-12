@@ -74,6 +74,15 @@ export default function Menu({
       </NavLink>
       <NavLink
         onClick={() => setDisplay(false)}
+        className={({ isActive }) =>
+          (isActive ? "text-green" : "") + " px-10 py-4 border-b border-b-green"
+        }
+        to={"/shop/cart"}
+      >
+        Cart
+      </NavLink>
+      <NavLink
+        onClick={() => setDisplay(false)}
         className={
           "font-semibold text-white bg-green px-10 py-4 border-b border-b-green"
         }

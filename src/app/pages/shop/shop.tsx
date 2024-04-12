@@ -111,7 +111,7 @@ export default function ShopPage() {
             <div className="flex flex-col gap-6 mb-4">
               {displayList?.length ? (
                 displayList.map((productList, index) => (
-                  <ProductRow key={index} list={productList} />
+                  <ProductRow key={index} showAll={true} list={productList} />
                 ))
               ) : (
                 <>No Listed Products Yet...</>
@@ -128,7 +128,7 @@ export default function ShopPage() {
               {/* todo: fix this to show top products */}
               {displayList?.length ? (
                 displayList.map((productList, index) => (
-                  <ProductRow key={index} list={productList} />
+                  <ProductRow key={index} showAll={true} list={productList} />
                 ))
               ) : (
                 <>No Top Products Yet...</>

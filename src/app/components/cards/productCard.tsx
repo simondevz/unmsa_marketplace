@@ -9,6 +9,7 @@ export default function ProductCard({
   quantity,
   product_id,
   ownerId,
+  showAll,
 }: {
   product_id: string;
   image_url: string;
@@ -16,6 +17,7 @@ export default function ProductCard({
   name: string;
   quantity: number;
   ownerId: string;
+  showAll?: boolean;
 }) {
   const navigate = useNavigate();
   const location = useLocation();
@@ -23,7 +25,16 @@ export default function ProductCard({
   const pathname = location.pathname;
 
   return (
-    <div className=" flex flex-col border border-2 border-green rounded-lg md:min-w-48 min-w-36">
+    <div
+      className={
+        (showAll
+          ? "flex "
+          : userId === ownerId && pathname.includes("/profile/")
+          ? "flex "
+          : "hidden ") +
+        " flex-col border border-2 border-green rounded-lg md:min-w-48 min-w-36"
+      }
+    >
       <div
         style={{
           backgroundImage: "url(" + image_url + ")",

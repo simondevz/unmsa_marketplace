@@ -1,7 +1,13 @@
 import ProductCard from "./cards/productCard";
 import { ProductType } from "../types/productTypes";
 
-export default function ProductRow({ list }: { list: ProductType[] }) {
+export default function ProductRow({
+  list,
+  showAll,
+}: {
+  list: ProductType[];
+  showAll: boolean;
+}) {
   return (
     <div className="shadow-lg p-2 rounded-md">
       <div className="flex gap-2 overflow-x-scroll">
@@ -15,6 +21,7 @@ export default function ProductRow({ list }: { list: ProductType[] }) {
               quantity={item.quantity}
               product_id={item.product_id}
               ownerId={item.owner}
+              showAll={showAll}
             />
           );
         })}

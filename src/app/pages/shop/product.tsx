@@ -122,7 +122,7 @@ export default function ProductPage() {
                 </div>
                 <div className="flex gap-2 lg:gap-4 mx-auto">
                   <button
-                    onClick={() => navigate("/shop/checkout")}
+                    // onClick={() => navigate("/shop/checkout")}
                     className="px-2 lg:px-4 lg:py-2 py-1 lg:text-base text-[0.75rem] text-white font-agrandir_bold rounded bg-light_green w-28 lg:w-32"
                   >
                     Buy Now
