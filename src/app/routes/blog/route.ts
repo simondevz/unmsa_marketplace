@@ -1,9 +1,10 @@
 import { RouteObject } from "react-router-dom";
-import BlogListPage from "../../pages/blog/blog";
+import BlogListRoute from "./blogIndex/route";
+import ArticleRoute from "./article/route";
 
 const BlogRoute: RouteObject = {
   path: "/blog",
-  Component: BlogListPage,
+  children: [BlogListRoute, ArticleRoute],
 };
 
 export default BlogRoute;

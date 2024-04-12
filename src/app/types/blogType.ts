@@ -4,4 +4,6 @@ export type BlogCardType = {
   author: string;
   date: string;
   image: any;
+  content?: string;
+  id?: number;
 };
