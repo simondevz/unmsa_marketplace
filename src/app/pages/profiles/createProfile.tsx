@@ -125,7 +125,7 @@ export default function CreateProfilePage() {
           />
         </div>
 
-        {profileData?.email ? (
+        {!searchParams.get("email") ? (
           <div className="flex flex-col px-2 md:px-4 gap-2 md:w-3/5 max-w-[20rem] md:max-w-full font-agrandir">
             <label htmlFor="email" className="font-agrandir">
               <span>Email address</span>
