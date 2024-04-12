@@ -1,6 +1,7 @@
 import { Link, NavLink } from "react-router-dom";
 import unmsa_logo from "../assets/logo/unmsa_logo.png";
 import unn_logo from "../assets/logo/unn_logo.png";
+import { blogData } from "../utils/blogStuff";
 
 export default function Footer() {
   function Divider() {
@@ -35,7 +36,7 @@ export default function Footer() {
               </div>
             </div>
           </div> */}
-          <div className="md:w-80">
+          <div className="md:w-full">
             <span className="font-calibri leading-tight md:text-[1.5rem] flex text-center md:text-left text-white">
               University of Nigeria Medical Students’ Association (UNMSA)
             </span>
@@ -101,15 +102,13 @@ export default function Footer() {
             Top Articles from UNMSA
           </h2>
           <div className="grid md:grid-cols-2 grid-cols-1 font-agrandir text-white text-[0.875rem]">
-            {Array(8)
-              .fill("10 takeaways from the 25th House  session")
-              .map((text: string, index: number) => {
-                return (
-                  <Link className="mb-4 px-4 w-64" key={index} to={"#"}>
-                    {text}
-                  </Link>
-                );
-              })}
+            {blogData.map((data, index: number) => {
+              return (
+                <Link className="mb-4 px-4 w-64" key={index} to={"#"}>
+                  {data.title}
+                </Link>
+              );
+            })}
           </div>
         </div>
 
@@ -118,11 +117,13 @@ export default function Footer() {
             Find us on Socials:
           </h2>
           <div className="flex flex-wrap font-agrandir w-full justify-center gap-3 md:gap-10 text-[0.875rem] my-8 text-white">
-            <Link to={"#"}>Twitter</Link>
-            <Link to={"#"}>Instagram</Link>
-            <Link to={"#"}>YouTube</Link>
-            <Link to={"#"}>Facebook</Link>
-            <Link to={"#"}>Email</Link>
+            <Link to={"https://twitter.com/unmsa_official"}>Twitter</Link>
+            <Link to={"https://www.instagram.com/unmsa_official/"}>
+              Instagram
+            </Link>
+            <Link to={"https://youtube.com/@unmsaofficial4573"}>YouTube</Link>
+            {/* <Link to={"#"}>Facebook</Link>
+            <Link to={"#"}>Email</Link> */}
           </div>
         </div>
       </div>

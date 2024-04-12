@@ -196,7 +196,7 @@ export default function HomePage() {
             )}
           </div>
 
-          <h3 className="font-agrandir_bold md:text-[1.5rem] text-[0.875rem] font-bold text-green">
+          {/* <h3 className="font-agrandir_bold md:text-[1.5rem] text-[0.875rem] font-bold text-green">
             See what’s happening in UNMSA
           </h3>
           <div>
@@ -226,7 +226,7 @@ export default function HomePage() {
             >
               Continue reading {">>"}
             </Link>
-          </div>
+          </div> */}
         </div>
       </section>
     </>
