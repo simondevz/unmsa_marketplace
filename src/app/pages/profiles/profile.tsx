@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import default_image_url from "../../assets/image/default_profile_pic.png";
 import ProductRow from "../../components/productRow";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import {
   useGetProductsQuery,
   useLazyGetProfileDetailsQuery,
@@ -60,8 +60,13 @@ export default function ProfilePage() {
         <span className="my-auto">Vendor's Profile</span>
       </div>
 
-      {!data?.email || isLoading ? (
+      {isLoading ? (
         <Loading />
+      ) : !data?.email && !isLoading ? (
+        <div>
+          You do not have a Profile yet. Create a profile{" "}
+          <Link to={"/profile/create"}>Here</Link>
+        </div>
       ) : (
         <section className="md:px-10 md:py-6 flex">
           <div className="flex flex-col md:gap-4 border-light_green md:border-2 w-full md:rounded-xl lg:p-8 md:p-6 px-6 py-2 md:shadow-lg">
