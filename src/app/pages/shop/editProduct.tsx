@@ -22,11 +22,13 @@ export default function EditProductPage() {
 
   const userId = useAppSelector((state) => state.auth._id);
   const [getProductFn, getProductRes] = useLazyGetProductByIdQuery();
-  const [updateProductFn, updateProductRes] = useUpdateProductMutation();
+  const [
+    updateProductFn,
+    //  updateProductRes
+  ] = useUpdateProductMutation();
 
   const [errorMsg, setErrorMsg] = useState<string>("");
-  const [creatProductFn, { data, isLoading, isSuccess }] =
-    useCreateProductMutation();
+  const [creatProductFn, { isLoading, isSuccess }] = useCreateProductMutation();
   const [productData, setProductData] = useState<Partial<ProductType>>({
     name: "",
     price: 0.0,

@@ -17,6 +17,16 @@ function App() {
   const dispatch = useDispatch();
   const accessToken = useAppSelector((state) => state.auth.accessToken);
 
+  // useEffect(() => {
+  //   // Scroll to top
+  //   const scrollToTop = () => {
+  //     console.log("to the top...");
+  //     console.log(document);
+  //     document.body.scrollTop = 0;
+  //   };
+  //   scrollToTop();
+  // }, [location.pathname]);
+
   // If the accesstoken is not in the global state or is expired attempt to get it from localStorage
   useEffect(() => {
     (async () => {

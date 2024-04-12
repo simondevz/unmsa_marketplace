@@ -147,7 +147,7 @@ export default function HomePage() {
             {getproductsRes?.isLoading ? (
               <Loading />
             ) : getproductsRes?.data && getproductsRes?.data?.length > 0 ? (
-              <ProductRow list={getproductsRes?.data} />
+              <ProductRow showAll={true} list={getproductsRes?.data} />
             ) : (
               <div>No Products Yet...</div>
             )}
@@ -173,7 +173,7 @@ export default function HomePage() {
             {getproductsRes?.isLoading ? (
               <Loading />
             ) : getproductsRes?.data && getproductsRes?.data?.length > 0 ? (
-              <ProductRow list={getproductsRes?.data} />
+              <ProductRow showAll={true} list={getproductsRes?.data} />
             ) : (
               <div>No Products Yet...</div>
             )}

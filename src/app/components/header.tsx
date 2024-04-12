@@ -39,7 +39,8 @@ export default function Header() {
 
         <div className="flex flex-col gap-4 items-end font-calibri">
           <div className="md:hidden flex gap-4 text-green text-[1.5rem] my-auto">
-            <span>
+            <span className="hidden">
+              {/** todo unhide */}
               <MdSearch />
             </span>
             <span onClick={() => setDisplay(!display)} className="">
@@ -78,7 +79,7 @@ export default function Header() {
           </div>
 
           <div className="hidden md:flex w-full">
-            <div className="flex border border-black border-2 rounded-md p-[0.15rem] ">
+            <div className="hidden border border-black border-2 rounded-md p-[0.15rem] ">
               <input
                 className="border-none outline-none w-80 text-[0.875rem]"
                 placeholder="Search anything"
@@ -94,6 +95,7 @@ export default function Header() {
       </div>
 
       <div className="hidden md:flex font-agrandir w-full justify-center gap-10 font-semibold text-green">
+        {/** todo unhide */}
         <NavLink
           className={({ isActive }) =>
             isActive ? "underline underline-offset-8 decoration-2" : ""

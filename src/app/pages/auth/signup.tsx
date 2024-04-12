@@ -66,6 +66,8 @@ export default function SignupPage() {
     return;
   };
 
+  console.log(error);
+
   return (
     <div className="flex w-full flex-col md:w-2/5">
       <span className="md:hidden flex font-agrandir_bold text-darker_lemon text-[1rem] px-4 pb-4 text-center mx-auto">

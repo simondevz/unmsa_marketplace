@@ -224,7 +224,7 @@ export default function ProfilePage() {
                 {getproductsRes?.isLoading ? (
                   <Loading />
                 ) : getproductsRes?.data && getproductsRes?.data?.length > 0 ? (
-                  <ProductRow list={getproductsRes?.data} />
+                  <ProductRow showAll={false} list={getproductsRes?.data} />
                 ) : (
                   <div>No Products Yet...</div>
                 )}
