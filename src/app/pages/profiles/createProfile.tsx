@@ -125,6 +125,23 @@ export default function CreateProfilePage() {
           />
         </div>
 
+        {profileData?.email ? (
+          <div className="flex flex-col px-2 md:px-4 gap-2 md:w-3/5 max-w-[20rem] md:max-w-full font-agrandir">
+            <label htmlFor="email" className="font-agrandir">
+              <span>Email address</span>
+            </label>
+            <input
+              type={"text"}
+              name="email"
+              id="email"
+              onChange={handleChange}
+              className="border-2 border-dark_ash_2 bg-milky_white p-2 rounded-md outline-none w-full"
+            />
+          </div>
+        ) : (
+          <></>
+        )}
+
         <div className="flex flex-col px-2 md:px-4 gap-2 md:w-3/5 max-w-[20rem] md:max-w-full font-agrandir">
           <label htmlFor="brandName" className="font-agrandir">
             <span>Brand name</span>
